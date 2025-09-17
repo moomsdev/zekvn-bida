@@ -1,0 +1,45 @@
+@use '../utilities/variables' as *;
+@use '../utilities/mixin' as *;
+
+section:not(.banner) {
+    margin: 60px 0;
+}
+
+.head-section {
+    position: relative;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+
+    &:before {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        content: "";
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        height: 100%;
+        background-image: url("./images/bg-title.png");
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+    }
+
+    h2.title-section {
+        margin-bottom: 8px;
+        color: $primaryColor;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        text-transform: uppercase;
+    
+        @include resFont(24px, 40px, true);
+    }
+    
+    p.subtitle {
+        margin-bottom: 5px;
+        text-align: center;
+        letter-spacing: 0.7px;
+    }
+}
