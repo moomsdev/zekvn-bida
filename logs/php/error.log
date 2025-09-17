@@ -1,0 +1,7 @@
+[17-Sep-2025 13:30:34 UTC] PHP Warning:  Attempt to read property "download_link" on bool in /Users/anhd/Documents/wordpress/zek-bida/app/public/wp-content/plugins/devvn-quick-buy/includes/updates.php on line 74
+[17-Sep-2025 13:30:34 UTC] PHP Warning:  Attempt to read property "download_link" on bool in /Users/anhd/Documents/wordpress/zek-bida/app/public/wp-content/plugins/devvn-quick-buy/includes/updates.php on line 75
+[17-Sep-2025 13:30:47 UTC] Lỗi lịch sự kiện Cron cho hook: wp_nf_update_fields_cron, Mã lỗi: invalid_schedule, Thông báo lỗi: Lịch cho sự kiện không tồn tại., Dữ liệu: {"schedule":"wp_nf_update_fields_cron_interval","args":[],"interval":300}
+[17-Sep-2025 13:30:47 UTC] Lỗi lịch sự kiện Cron cho hook: nf_marketing_feed_cron, Mã lỗi: invalid_schedule, Thông báo lỗi: Lịch cho sự kiện không tồn tại., Dữ liệu: {"schedule":"nf-weekly","args":[],"interval":604800}
+[17-Sep-2025 13:30:47 UTC] Lỗi lịch sự kiện Cron cho hook: nf_weekly_promotion_update, Mã lỗi: invalid_schedule, Thông báo lỗi: Lịch cho sự kiện không tồn tại., Dữ liệu: {"schedule":"nf-weekly","args":[],"interval":604800}
+[17-Sep-2025 13:30:47 UTC] Lỗi lịch sự kiện Cron cho hook: nf_optin_cron, Mã lỗi: invalid_schedule, Thông báo lỗi: Lịch cho sự kiện không tồn tại., Dữ liệu: {"schedule":"nf-monthly","args":[],"interval":2678400}
+[17-Sep-2025 13:30:52 UTC] PHP Warning:  Undefined array key "name" in /Users/anhd/Documents/wordpress/zek-bida/app/public/wp-content/plugins/advanced-custom-fields-pro/includes/class-acf-site-health.php on line 304

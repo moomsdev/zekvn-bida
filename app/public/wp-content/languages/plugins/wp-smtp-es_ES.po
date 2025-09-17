@@ -1,0 +1,65 @@
+# Translation of Plugins - Solid Mail – SMTP email and logging made by SolidWP - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Solid Mail – SMTP email and logging made by SolidWP - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-09-17 16:18:54+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Solid Mail – SMTP email and logging made by SolidWP - Stable (latest release)\n"
+
+#: wp-smtp.php:256
+msgid "We recently made some changes regarding how we save the username and password in the database, namely we are encrypting them, so that might be the reason for the connection error. Re-entering and saving them should solve the issue."
+msgstr "Recientemente realizamos algunos cambios en cómo guardamos el nombre de usuario y la contraseña en la base de datos, específicamente estamos encriptándolos, por lo que esa podría ser la razón del error de conexión. Volver a ingresar y guardar la información debería resolver el problema."
+
+#: wp-smtp.php:251
+msgid "WP SMTP connection error"
+msgstr "Error de conexión WP SMTP"
+
+#: wp-smtp.php:252
+msgid "Seems like there are some problems with the entered information. Please re-check & re-enter it and hit the \"Save changes\" button."
+msgstr "Parece que hay algunos problemas con la información introducida. Por favor, vuelve a comprobarla, introdúcela de nuevo y pulsa el botón «Guardar cambios»."
+
+#. Description of the plugin
+#: wp-smtp.php
+msgid "Solid Mail can help us to send emails via SMTP instead of the PHP mail() function and email logger built-in."
+msgstr "Solid Mail puede ayudarnos a enviar correos electrónicos a través de SMTP en lugar de la función PHP mail() y el registrador de correos electrónicos incorporado."
+
+#: inc/Admin.php:41
+msgid "Mail Logs"
+msgstr "Registros de correo"
+
+#: wp-smtp.php:145
+msgid "Logs"
+msgstr "Registros"
+
+#: src/Mail/Connectors/ConnectorSMTP.php:345
+#: admin-react/routes/connections/connectors/smtp-provider/index.js:123
+#: assets/js/index.js:137
+msgid "SMTP Authentication"
+msgstr "Identificación SMTP"
+
+#: src/Mail/Connectors/ConnectorSMTP.php:344
+#: admin-react/routes/connections/connectors/smtp-provider/index.js:97
+#: assets/js/index.js:137
+msgid "SMTP Port"
+msgstr "Puerto SMTP"
+
+#: src/Mail/Connectors/ConnectorSMTP.php:342
+msgid "From Name"
+msgstr "Nombre del remitente"
+
+#: inc/Admin.php:48 wp-smtp.php:148 admin-react/routes/settings/index.js:79
+#: assets/js/settings.js:88
+msgid "Settings"
+msgstr "Ajustes"
+
+#: src/Mail/Connectors/ConnectorSMTP.php:343
+#: admin-react/routes/connections/connectors/amazon-ses/index.js:69
+#: admin-react/routes/connections/connectors/smtp-provider/index.js:86
+#: assets/js/index.js:137
+msgid "SMTP Host"
+msgstr "Servidor SMTP"
