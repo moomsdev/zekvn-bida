@@ -17,6 +17,7 @@
 		<script src="<?php bloginfo('template_url' ); ?>/js/jquery.fancybox.min.js"></script>
 		<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/dist/style.css?v=<?php echo time(); ?>">
 		<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/style.css?v=<?php echo time();?>">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 		<?php $value = get_field( 'code_header','option' ); echo $value?>
 	</head>
 	<body <?php body_class(); ?>>
