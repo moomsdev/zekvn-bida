@@ -58,21 +58,6 @@ h6{font-size: 14px;}
 .justify-start{justify-content: flex-start;}
 .row-reverse{flex-direction:row-reverse;}
 .column-reverse{flex-direction:column-reverse;}
-@media (min-width: 576px){
-	.container, .container-sm {max-width: 540px;}
-}
-@media (min-width: 768px){
-	.container, .container-md, .container-sm { max-width: 720px;}
-}
-@media (min-width: 992px){
-	.container, .container-lg, .container-md, .container-sm {max-width: 960px;}
-}
-@media (min-width: 1200px){
-	.container, .container-lg, .container-md, .container-sm, .container-xl {max-width: 1140px;}
-}
-@media (min-width: 1400px){
-	.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {max-width: 1320px;}
-}
 
 /* input-button */
 input[type="text"],input[type="search"],input[type="password"],input[type="email"],input[type="file"],input[type="number"],input[type="date"],input[type="tel"],textarea,select{width:100%;max-width:100%;display:block;outline:none;border: 1px solid #E6E6E6;padding: 11px 12px;color: #999999;font-weight: 500;border-radius: 4px;}
@@ -602,4 +587,3 @@ a img.aligncenter{display:block;margin-left:auto;margin-right:auto}
 	font-style: normal;
 	font-display: swap;
 }
-
