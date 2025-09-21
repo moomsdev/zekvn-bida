@@ -1082,5 +1082,172 @@
         </div>
     </section>
     <!-- End register -->
+
+    <!-- new-event2 -->
+    <section class="news-list">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="Rasson Woft nhập Trung" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Rasson Woft nhập Trung – Phiên bản hoàn hảo từ Quang Huy Billiards
+                            </h5>
+                            <p class="news-date">03/08/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="3 mẫu bàn nhập Trung mới nhất" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Giới thiệu 3 mẫu bàn nhập Trung mới nhất 2025 tại Quang Huy Billiards
+                            </h5>
+                            <p class="news-date">02/08/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="Các mẫu bàn bida Aileex chính hãng" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Các mẫu bàn bida Aileex chính hãng mới nhất 2025
+                            </h5>
+                            <p class="news-date">03/02/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="Rasson Woft nhập Trung" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Rasson Woft nhập Trung – Phiên bản hoàn hảo từ Quang Huy Billiards
+                            </h5>
+                            <p class="news-date">03/08/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="3 mẫu bàn nhập Trung mới nhất" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Giới thiệu 3 mẫu bàn nhập Trung mới nhất 2025 tại Quang Huy Billiards
+                            </h5>
+                            <p class="news-date">02/08/2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="news-card">
+                        <div class="news-thumb">
+                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
+                                alt="Các mẫu bàn bida Aileex chính hãng" class="img-fluid">
+                        </div>
+                        <div class="news-content p-3">
+                            <h5 class="news-title">
+                                Các mẫu bàn bida Aileex chính hãng mới nhất 2025
+                            </h5>
+                            <p class="news-date">03/02/2025</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End new-event -->
+
+    <!-- project -->
+    <section class="posts-timeline">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-12">
+                    <div class="timeline-list">
+                        <article class="timeline-item">
+                            <div class="timeline-left">
+                                <div class="date">29/08/2025</div>
+                            </div>
+
+                            <div class="timeline-right">
+                                <div class="post-card">
+                                    <div class="post-thumb">
+                                        <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Hoan-thanh-lap-dat-ban-giao-1-ban-bi-a-tai-Tochigi-Nhat-Ban.png"
+                                            alt="">
+                                    </div>
+                                    <div class="post-body">
+                                        <div class="categories-dropdown">
+                                            <span class="categories-label">Categories ▾
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Dự án</a></li>
+                                                    <li><a href="#">Tin tức</a></li>
+                                                </ul>
+                                            </span>
+                                        </div>
+                                        <h3 class="post-title">Hoàn thành giao hàng và lắp đặt 1 bàn bi a tại Tochigi
+                                            Nhật Bản</h3>
+                                        <div class="post-meta">
+                                            <span class="comments">💬 0</span>
+                                            <a class="readmore" href="#">Xem thêm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="timeline-item">
+                            <div class="timeline-left">
+                                <div class="date">29/08/2025</div>
+                            </div>
+
+                            <div class="timeline-right">
+                                <div class="post-card">
+                                    <div class="post-thumb">
+                                        <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Hoan-thanh-lap-dat-ban-giao-1-ban-bi-a-tai-Tochigi-Nhat-Ban.png"
+                                            alt="">
+                                    </div>
+                                    <div class="post-body">
+                                        <div class="categories-dropdown">
+                                            <span class="categories-label">Categories ▾
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Dự án</a></li>
+                                                    <li><a href="#">Tin tức</a></li>
+                                                </ul>
+                                            </span>
+                                        </div>
+                                        <h3 class="post-title">Lắp đặt bàn bi-a cho homestay tại Hà Nội</h3>
+                                        <div class="post-meta">
+                                            <span class="comments">💬 0</span>
+                                            <a class="readmore" href="#">Xem thêm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End project -->
+
 </main>
 <?php get_footer(); ?>
