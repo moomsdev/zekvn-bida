@@ -9,6 +9,11 @@ section:not(.banner) {
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 .banner {
   margin-bottom: 60px;
 
@@ -89,68 +94,88 @@ section:not(.banner) {
 }
 
 .blog {
-  .service-card {
-    aspect-ratio: 3/2;
-    position: relative;
-    border-radius: 32px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    text-align: left;
-    color: #fff;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  padding: 0 20px;
 
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1;
+  .item {
+    @include mediaMaxWidth($md) {
+      margin-bottom: 15px;
     }
 
-    .cart-content {
+    .service-card {
       position: relative;
-      z-index: 2;
-      padding: 70px 30px;
+      border-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+      text-align: left;
+      color: #fff;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
 
-      h2 {
-        font-size: 19px;
-        font-weight: 500;
-        line-height: 1.1em;
-        margin-bottom: 20px;
-        cursor: pointer;
-        transition: transform 0.3s ease;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
 
-        &:hover {
-          transform: translateY(-15px);
+      .cart-content {
+        position: relative;
+        z-index: 2;
+        padding: 50px 15px;
+
+        @include mediaMaxWidth($md) {
+          padding: 30px 15px;
         }
-      }
 
-      p {
-        font-size: 16px;
-        line-height: 1.4;
-        font-weight: 300;
-        margin-bottom: 35px;
-      }
+        h2 {
+          font-weight: 500;
+          margin-bottom: 20px;
+          cursor: pointer;
+          transition: transform 0.3s ease;
 
-      a {
-        font-size: 13px;
-        padding: 10px 20px;
-        background-color: #030303;
-        color: #fff;
-        border-radius: 2px;
-        transition: all 0.3s ease;
+          @include resFont(16px, 18px);
 
-        &:hover {
-          background-color: #fff;
-          color: #000;
+          @include mediaMaxWidth($md) {
+            margin-bottom: 15px;
+          }
+
+          &:hover {
+            transform: translateY(-15px);
+          }
+        }
+
+        p {
+          margin-bottom: 20px;
+
+          @include mediaMaxWidth($md) {
+            margin-bottom: 15px;
+          }
+        }
+
+        a {
+          font-size: 13px;
+          padding: 10px 20px;
+          background-color: #030303;
+          color: #fff;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: #fff;
+            color: #000;
+          }
+
+          @include mediaMaxWidth($md) {
+            padding: 8px 16px;
+          }
         }
       }
     }
@@ -164,12 +189,14 @@ section:not(.banner) {
     color: #fff;
 
     h2 {
-      font-size: 26px;
+      font-family: $subFont;
       font-weight: 600;
       letter-spacing: 0px;
       line-height: 1;
       padding-top: 15px;
       margin-bottom: 10px;
+
+      @include resFont(20px, 26px);
     }
 
     p {
@@ -179,12 +206,12 @@ section:not(.banner) {
   }
 
   .container {
-    padding-top: 15px;
-    padding-left: 0px;
-    padding-right: 0px;
-    h2 {
+    .title-header {
+      font-family: $subFont;
       text-align: center;
       font-weight: 600;
+
+      @include resFont(18px, 24px);
     }
   }
   .subtitle {
@@ -194,7 +221,6 @@ section:not(.banner) {
   }
 
   .cart-products {
-    padding: 0 10px;
     .swiper-wrapper {
       display: flex;
       align-items: stretch;
@@ -204,8 +230,7 @@ section:not(.banner) {
     .swiper-slide {
       height: auto;
       display: flex;
-
-     
+      padding: 5px;
     }
 
     .product-card {
@@ -221,7 +246,7 @@ section:not(.banner) {
       cursor: pointer;
       border: 1px solid #ddd;
       border-radius: 8px;
-      padding: 15px;
+      padding: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 1);
 
       &:hover {
@@ -238,7 +263,7 @@ section:not(.banner) {
       }
 
       .product-title {
-        font-size: 20px;
+        font-family: $subFont;
         font-weight: 600;
         line-height: 1.4;
         color: #111;
@@ -248,7 +273,7 @@ section:not(.banner) {
         align-items: flex-start;
         text-align: center;
 
-        @include resFont(16px, 20px);
+        @include resFont(16px, 18px);
       }
     }
   }
@@ -257,15 +282,21 @@ section:not(.banner) {
 .price {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
   align-items: center;
   justify-content: center;
 
-  del .woocommerce-Price-amount {
-    font-size: 12.8px;
-    color: #888;
-    margin-bottom: 5px;
-    text-decoration: line-through;
+  del {
+    text-decoration: none;
+    .woocommerce-Price-amount {
+      font-size: 12.8px;
+      color: #888;
+      margin-bottom: 5px;
+      text-decoration: line-through;
+    }
+  }
+
+  ins {
+    text-decoration: none;
   }
 
   .woocommerce-Price-amount {
@@ -273,7 +304,6 @@ section:not(.banner) {
     font-weight: 700;
     color: #e53935;
   }
-
 }
 
 .quote-section {
@@ -306,10 +336,12 @@ section:not(.banner) {
       justify-content: center;
 
       h3 {
-        font-size: 20px;
-        font-weight: 700;
+        font-family: $subFont;
+        font-weight: 600;
         margin-bottom: 10px;
         line-height: 1.4;
+
+        @include resFont(16px, 20px);
       }
 
       p {
@@ -317,45 +349,10 @@ section:not(.banner) {
         margin-bottom: 20px;
         line-height: 1.5;
       }
-
-      .quote-form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-
-        input,
-        textarea {
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          padding: 12px 14px;
-          font-size: 14px;
-          width: 100%;
-          resize: none;
-
-          &::placeholder {
-            color: #aaa;
-          }
-        }
-
-        button {
-          background: #ffd400;
-          border: none;
-          padding: 14px 20px;
-          font-size: 16px;
-          font-weight: 700;
-          border-radius: 8px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-
-          &:hover {
-            background: #e6bf00;
-          }
-        }
-      }
     }
   }
 
-  @include mediaMaxWidth($md) {
+  @include mediaMaxWidth($sm) {
     .quote-container {
       flex-direction: column;
       .quote-image {
@@ -372,8 +369,11 @@ section:not(.banner) {
 
   .club-title {
     text-align: center;
+    font-family: $subFont;
     font-weight: 600;
     margin-bottom: 30px;
+
+    @include resFont(20px, 26px);
   }
 
   .btn {
@@ -429,10 +429,11 @@ section:not(.banner) {
 
   .news-title {
     text-align: center;
-    font-size: 28px;
     font-weight: 700;
     color: #fff;
     margin-bottom: 40px;
+
+    @include resFont(20px, 26px);
   }
 
   .news-card {
@@ -440,7 +441,6 @@ section:not(.banner) {
       position: relative;
       border-radius: 8px;
       overflow: hidden;
-
 
       img {
         width: 100%;
@@ -474,10 +474,12 @@ section:not(.banner) {
       }
 
       .news-heading a {
-        font-size: 18px;
         font-weight: 600;
+        font-family: $subFont;
         line-height: 1.4;
         color: #fff;
+
+        @include resFont(16px, 18px);
         &:hover {
           color: $primaryColor;
         }
@@ -494,8 +496,9 @@ section:not(.banner) {
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     margin: 0 1px;
     transition: transform 0.3s ease;
 
@@ -504,18 +507,18 @@ section:not(.banner) {
       box-shadow: 0 6px 16px rgba(1, 1, 1, 1);
     }
 
-    .fw-bold {
-      font-size: 22px;
+    .title-card {
+      font-family: $subFont;
       margin-bottom: 15px;
-      font-weight: 600;
+      font-weight: 700;
+
+      @include resFont(16px, 18px);
     }
 
     p {
       font-size: 16px;
-      color: #000;
-      line-height: 1.5;
       margin-bottom: 15px;
-      font-weight: 200;
+      font-weight: 400;
     }
 
     .see-more {
@@ -525,6 +528,7 @@ section:not(.banner) {
 
       &:hover {
         color: #e68e01;
+        text-decoration: underline;
       }
     }
 
@@ -540,14 +544,22 @@ section:not(.banner) {
         width: 100%;
       }
     }
+
+    @include mediaMaxWidth($md) {
+      padding: 10px;
+      grid-template-columns: 1fr;
+      margin-bottom: 15px;
+    }
   }
 
   .reason-subtitle {
-    font-size: 20px;
-  }
+    font-family: $subFont;
+    line-height: 1;
+    font-weight: 600;
+    color: #4c4d52 !important;
+    text-transform: uppercase;
 
-  h3 {
-    font-size: 22px;
+    @include resFont(20px, 26px);
   }
 
   @include mediaMaxWidth($md) {
@@ -556,22 +568,28 @@ section:not(.banner) {
 
       .reason-img {
         margin-top: 20px;
+        order: 1;
+      }
+      .reason-content {
+        order: 2;
       }
     }
   }
 }
 
 .register-section {
-  text-align: center;
-
   .register-left {
     flex: 1;
+    padding: 0 50px;
 
     h3 {
-      font-size: 28px;
+      font-family: $subFont;
       font-weight: 700;
       color: #2c2c38;
       margin-bottom: 15px;
+      text-align: center;
+
+      @include resFont(20px, 26px);
     }
 
     p {
@@ -579,83 +597,39 @@ section:not(.banner) {
       color: #444;
       line-height: 1.5;
     }
+
+    @include mediaMaxWidth($md) {
+      padding: 0 20px;
+    }
   }
 
   .register-right {
-    flex: 1;
+    padding: 0 50px;
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+    textarea {
+      max-height: 82px;
+    }
 
-      input,
-      textarea {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 15px;
-        outline: none;
-
-        &:focus {
-          border-color: #1f2553;
-        }
+    input,
+    textarea {
+      &:focus {
+        border-color: #ffd600;
       }
 
-      textarea {
-        min-height: 60px;
-        resize: none;
-      }
-
-      button {
-        background: #ffd600;
-        border: none;
-        padding: 14px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        color: #1f2553;
-        transition: all 0.3s ease;
-
+      &[type="submit"] {
         &:hover {
-          background: #ffca00;
+          border-color: #ffb128;
+          color: #ffb128;
+          background-color: transparent;
         }
       }
     }
-  }
 
-  @include mediaMaxWidth($md) {
-      flex-direction: column;
-      text-align: center;
-
-      .register-left {
-        h3 {
-          font-size: 24px;
-        }
-        p {
-          font-size: 15px;
-        }
-      }
-
-      .register-right {
-        width: 100%;
-
-        form {
-          input,
-          textarea,
-          button {
-            font-size: 15px;
-          }
-
-          button {
-            width: 100%;
-          }
-        }
-      }
+    @include mediaMaxWidth($md) {
+      padding: 0 20px;
     }
   }
+}
 
 .news-list {
   background: #fafafa;
@@ -956,5 +930,35 @@ h1.page-title {
     font-weight: 600;
     color: #111;
     margin-bottom: 15px;
+  }
+}
+
+form.wpcf7-form {
+  input,
+  textarea {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 15px;
+    resize: none;
+    outline: none;
+
+    &[type="submit"] {
+      background: $primaryColor;
+      font-weight: 600;
+      text-transform: uppercase;
+      width: 50% !important;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
+  textarea {
+    max-height: 150px;
+    @include mediaMaxWidth($md) {
+      max-height: 82px;
+    }
   }
 }
