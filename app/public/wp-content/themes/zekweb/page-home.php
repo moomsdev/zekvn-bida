@@ -2,1011 +2,353 @@
 /*
  Template Name: Trang chủ
  */
- ?>
+?>
 <?php get_header(); ?>
 <main id="main">
     <!-- Banner -->
+    <?php
+    $banner = get_field('banner_bg','option');
+    $banner_title = get_field('banner_title','option');
+    $banner_desc = get_field('banner_desc','option');
+    $banner_url = get_field('banner_url','option');
+
+    ?>
     <section class="banner">
         <div class="banner-inner"
-            style="background-image: url(https://quanghuybilliards.com/wp-content/uploads/2025/02/Tho-lap-ban-bi-a-Quang-Huy-Billiards-scaled-e1756318857499.jpg);">
+            style="background-image: url(<?php echo $banner; ?>);">
             <div class="banner-content">
-                <h2>QUANG HUY BILLIARDS</h2>
-                <p>
-                    Đơn vị sản xuất bàn bida trực tiếp.
-                    <br>
-                    <br>
-                    Phân phối, lắp đặt bàn bida các thương hiệu RASSON, AILEEX, KKKING, APLUS, SAMURAI...
-                    <br>
-                    <br>
-                    Lựa chọn hàng đầu cho club bi a chuyên nghiệp.
-                </p>
-                <a href="#">Vào cửa hàng</a>
+                <?php
+                if($banner_title) :
+                    echo '<h2>'.$banner_title.'</h2>';
+                endif;
+
+                if ($banner_desc):
+                    echo '<div class="banner-desc">' . apply_filters('the_content', $banner_desc) . '</div>';
+                endif;
+
+                if($banner_url) :
+                    $url= $banner_url['url'] ? $banner_url['url'] : '#';
+                    $title = $banner_url['title'] ? $banner_url['title'] : 'Vào cửa hàng';
+                    $target = $banner_url['target'] ? $banner_url['target'] : '_self';
+
+                    echo '<a href="'.$url.'" target="'.$target.'">'.$title.'</a>';
+                endif;
+                ?>
             </div>
         </div>
     </section>
     <!-- End Banner -->
 
-    <!-- Blog -->
+    <!-- Service -->
+    <?php
+    $services = get_field('services','option');
+    ?>
     <section class="blog">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="service-card"
-                        style="background-image: url(https://quanghuybilliards.com/wp-content/uploads/2023/10/383741024_335342392340212_1793023626525967283_n-1200x800.jpg);">
-                        <div class="cart-content">
-                            <h2>BÀN BILLIARDS</h2>
-                            <p>QH Billiards cung các loại bàn bi-a nội địa, liên doanh, nhập khẩu, chính hãng giá cạnh
-                                tranh nhất.</p>
-                            <a href="#">XEM NGAY</a>
+                <?php
+                if($services) :
+                    foreach($services as $service) :
+                        $background = $service['background'];
+                        $title = $service['title'];
+                        $desc = $service['desc'];
+                        $url = $service['url'];
+                    ?>
+                    <div class="col-md-4">
+                        <div class="service-card"
+                            style="background-image: url(<?php echo $background; ?>);">
+                            <div class="cart-content">
+                                <?php
+                                if($title) :
+                                    echo '<h2>'.$title.'</h2>';
+                                endif; 
+                                
+                                if($desc) :
+                                    echo apply_filters('the_content', $desc);
+                                endif;
+
+                                if($url) :
+                                    $url_link = $url['url'] ? $url['url'] : '#';
+                                    $title = $url['title'] ? $url['title'] : 'XEM NGAY';
+                                    $target = $url['target'] ? $url['target'] : '_self';
+
+                                    echo '<a href="'.$url_link.'" target="'.$target.'">'.$title.'</a>';
+                                endif;
+                                ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4" style="padding-left: 5px; padding-right: 5px;">
-                    <div class="service-card"
-                        style="background-image: url(https://quanghuybilliards.com/wp-content/uploads/2023/10/327593646_900149947853572_3979368342061252720_n-1200x799.jpg);">
-                        <div class="cart-content">
-                            <h2>BÀN BILLIARDS</h2>
-                            <p>QH Billiards cung các loại bàn bi-a nội địa, liên doanh, nhập khẩu, chính hãng giá cạnh
-                                tranh nhất.</p>
-                            <a href="#">XEM NGAY</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="service-card"
-                        style="background-image: url(https://quanghuybilliards.com/wp-content/uploads/2023/10/392884801_301359716014321_2309381658700528097_n-900x1200.jpg);">
-                        <div class="cart-content">
-                            <h2>BÀN BILLIARDS</h2>
-                            <p>QH Billiards cung các loại bàn bi-a nội địa, liên doanh, nhập khẩu, chính hãng giá cạnh
-                                tranh nhất.</p>
-                            <a href="#">XEM NGAY</a>
-                        </div>
-                    </div>
-                </div>
+                    <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
         </div>
     </section>
-    <!-- End Blog -->
+    <!-- End Service -->
 
-    <!-- Product -->
+    <!-- Latest Product -->
+    <?php
+    $latest_prd_title = get_field('latest_prd_title','option');
+    $latest_prd_subtitle = get_field('latest_prd_subtitle','option');
+    $latest_prd_desc = get_field('latest_prd_desc','option');
+    $latest_prd_list = get_field('latest_prd_list','option');
+    ?>
     <section class="product">
         <div class="section-header text-center">
-            <h2 class="title">MẪU BÀN BIDA MỚI NHẤT 2025</h2>
-            <p>( Giá tham khảo, liên hệ shop để được báo giá )</p>
+            <?php
+            if($latest_prd_title) :
+                echo '<h2 class="title">'.$latest_prd_title.'</h2>';
+            endif;
+
+
+            if($latest_prd_subtitle) :
+                echo '<p>'.$latest_prd_subtitle.'</p>';
+            endif;
+            ?>
         </div>
+
         <div class="container">
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-products cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
+        <?php
+        if($latest_prd_list) :
+            foreach($latest_prd_list as $prd) :
+                $desc = $prd['desc'];
+                $products = $prd['products'];
+                ?>
+                <div class="latest-prd-list">
+                    <?php
+                    if($desc) :
+                        echo '<h3 class="subtitle">'.apply_filters('the_content', $desc).'</h3>';
+                    endif;
+                    ?>
+
+                    <div class="swiper swiper-product-5 cart-products">
+                        <div class="swiper-wrapper">
+                        <?php
+                        if($products) :
+                            foreach($products as $item) :
+                                $img = get_the_post_thumbnail_url($item);
+                                $title = get_the_title($item);
+                                // get price woocommerce product
+                                $product = wc_get_product($item);
+                                $price = $product ? $product->get_price_html() : '';
+                            ?>
+                                <div class="swiper-slide">
+                                    <div class="product-card">
+                                        <img src="<?php echo $img; ?>"
+                                            alt="<?php echo $title; ?>" class="img-fluid" title="<?php echo $title; ?>" loading="lazy">
+                                        <h4 class="product-title"><?php echo $title; ?></h4>
+                                        <div class="price"><?php echo $price; ?></div>
+                                    </div>
+                                </div>
+                            <?php
+                            endforeach;
+                        endif;
+                        ?>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
+                        <div class="banner-pagination"></div>
                     </div>
                 </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-products cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/06/Ban-bida-lo-Samurai-Titan-Quanghuybilliards.com-5-e1718971953386.jpg"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/06/Ban-bida-lo-Samurai-Titan-Quanghuybilliards.com-5-e1718971953386.jpg"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/06/Ban-bida-lo-Samurai-Titan-Quanghuybilliards.com-5-e1718971953386.jpg"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/06/Ban-bida-lo-Samurai-Titan-Quanghuybilliards.com-5-e1718971953386.jpg"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/06/Ban-bida-lo-Samurai-Titan-Quanghuybilliards.com-5-e1718971953386.jpg "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
+
+                <?php
+            endforeach;
+        endif;
+        ?>
         </div>
     </section>
-    <!-- End Product -->
+    <!-- End Latest Product -->
 
-    <!-- Quote -->
-    <section class="quote-section">
-        <div class="quote-container container">
-            <div class="quote-image">
-                <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Luxury-Chinh-Hang-Trang-.png"
-                    alt="Quang Huy Billiards">
-            </div>
-
-            <div class="quote-content">
-                <h3>
-                    Nhận báo giá ưu đãi tốt nhất cho khách hàng CLUB.
-                    <strong>Chúng tôi liên hệ lại ngay sau 5 phút.</strong>
-                </h3>
-                <p>
-                    Với năng lực sản xuất, nhập khẩu, chúng tôi tự tin mang đến cho khách hàng
-                    sản phẩm tốt, dịch vụ tốt giá cạnh tranh nhất thị trường.
-                </p>
-
-                <form class="quote-form">
-                    <input type="text" placeholder="Nhập tên khách hàng">
-                    <input type="tel" placeholder="Nhập số điện thoại, ví dụ: 09********">
-                    <textarea placeholder="Anh chị nhắn lại nhu cầu tại đây để em phục vụ nhanh nhất nhé !"></textarea>
-                    <button type="submit">GỬI YÊU CẦU</button>
-                </form>
-            </div>
-        </div>
-    </section>
-    <!-- End Quote -->
+    <!-- Contact -->
+    <?php get_template_part('template_parts/section-contact'); ?>
+    <!-- End Contact -->
 
     <!-- Trademark -->
+    <?php
+    $prd_section = get_field('prd_section','option');
+    foreach($prd_section as $section) :
+        $title = $section['prd_cat_title'];
+        $subtitle = $section['prd_cat_subtitle'];
+        $categories = $section['prd_categories'];
+    ?>
     <section class="product">
         <div class="section-header text-center">
-            <h2 class="title">THƯƠNG HIỆU BÀN BIDA NỔI BẬT</h2>
-            <p>( Giá tham khảo, liên hệ shop để được báo giá )</p>
+            <?php
+            if($title) :
+                echo '<h2 class="title">'.$title.'</h2>';
+            endif;
+
+            if($subtitle) :
+                echo '<p>'.$subtitle.'</p>';
+            endif;
+            ?>
         </div>
-        <div class="container">
-            <h2>BÀN BIDA RASSON</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
+
+        <?php
+        if($categories) :
+            foreach($categories as $category) :
+                $qtt_slide = $category['qtt_slide'];
+                $title = $category['title'];
+                $desc = $category['desc'];
+                $catId = $category['prd_cat'];
+                
+                if($qtt_slide == 'nam') :
+                    $swiper_class = 'swiper-product-5';
+                elseif($qtt_slide == 'ba') :
+                    $swiper_class = 'swiper-product-3';
+                else :
+                    $swiper_class = 'swiper-product-4';
+                endif;
+                ?>
+                    <div class="container">
+                        <?php
+
+                        if($title) :
+                            echo '<h2>'.$title.'</h2>';
+                        endif;
+
+                        if($desc) :
+                            echo '<h3 class="subtitle">'.$desc.'</h3>';
+                        endif;
+                        ?>
+                        
+                        <div class="swiper <?php echo $swiper_class; ?> cart-products">
+                            <div class="swiper-wrapper">
+                                <?php
+                                if($catId): 
+                                    $args = array(
+                                        'post_type' => 'product', // Post type Album
+                                        'posts_per_page' => 10,
+                                        'tax_query' => array(
+                                            array(
+                                                'taxonomy' => 'product_cat', // Taxonomy danh mục album
+                                                'field'    => 'term_id',
+                                                'terms'    => $catId,
+                                            ),
+                                        ),
+                                    );
+                                    
+                                    $product_posts = new WP_Query($args);
+                                    
+                                    if($product_posts->have_posts()):
+                                        while($product_posts->have_posts()): $product_posts->the_post();
+                                            $product = wc_get_product(get_the_ID());
+                                            $price = $product ? $product->get_price_html() : '';
+                                        ?>
+                                            <div class="swiper-slide">
+                                                <div class="product-card">
+                                                    <img class="img-fluid" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" loading="lazy">
+                                                    <h4 class="product-title"><?php the_title(); ?></h4>
+                                                    <div class="price"><?php echo $price; ?></div>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        endwhile;
+                                        wp_reset_postdata();
+                                    endif;
+                                    ?>
+                            </div>
+
+                            <div class="banner-pagination"></div>
                         </div>
                     </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BIDA AILEEX NGỌC MỸ</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-table cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BIDA RASSON</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BIDA RASSON</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BIDA RASSON</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
+                <?php
+                endif;
+            endforeach;
+        endif;
+        ?>
     </section>
+    <?php
+    endforeach;
+    ?>
     <!-- End Trademark -->
 
-    <!-- Segments -->
-    <section class="product">
-        <div class="section-header text-center">
-            <h2 class="title">CÁC PHÂN KHÚC BÀN BIDA</h2>
-            <p>( Giá tham khảo, liên hệ shop để được báo giá )</p>
-        </div>
-        <div class="container">
-            <h2>BÀN BIDA RASSON</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Nội Địa – Liên Doanh – Nhập Trung</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-table cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-Bida-Aileex-Crown-S24-Chinh-Hang-quanghuybilliards.com-.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bi-a Aileex Crown Luxury Ngọc Mỹ | Đen</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BI A LIÊN DOANH TAIWAN</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BI A NHẬP TRUNG</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BI A CHÍNH HÃNG</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>PHỤ KIỆN NỈ - BÓNG - CƠ </h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bida <strong>Chính Hãng</strong> mới nhất 2025
-            </h3>
-            <div class="swiper swiper-trademark cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/02/Ban-bida-Aileex-Crown-S24-Luxury-Nhap-Trung-Den.png  "
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-        <div class="container">
-            <h2>BÀN BI LẮC​</h2>
-            <h3 class="subtitle">
-                Các mẫu bàn bi lắc được cung cấp tại Quang Huy Billiards
-            </h3>
-            <div class="swiper swiper-products cart-products">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/03/z5290578761684_7c177b511dd8c82f165db1d13a166bbf.jpg"
-                                alt="Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Aileex Crown S24 Luxury Nhập Trung | Trắng</h4>
-                            <p class="price-old"><del>42.000.000 đ</del></p>
-                            <p class="price-new">36.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/03/z5290578761684_7c177b511dd8c82f165db1d13a166bbf.jpg"
-                                alt="Bàn Bi-a Rasson Accura Nhập Trung Model 2025" class="img-fluid">
-                            <h4 class="product-title">Bàn Bi-a Rasson Accura Nhập Trung Model 2025</h4>
-                            <p class="price-old"><del>46.000.000 đ</del></p>
-                            <p class="price-new">34.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/03/z5290578761684_7c177b511dd8c82f165db1d13a166bbf.jpg"
-                                alt="Bàn Bida Aileex Crown S24 Nhập Trung 1:1" class="img-fluid">
-                            <h4 class="product-title">Bàn Bida Aileex Crown S24 Nhập Trung 1:1</h4>
-                            <p class="price-old"><del>41.000.000 đ</del></p>
-                            <p class="price-new">35.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/03/z5290578761684_7c177b511dd8c82f165db1d13a166bbf.jpg"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-card">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2024/03/z5290578761684_7c177b511dd8c82f165db1d13a166bbf.jpg"
-                                alt="Bàn bida Mr Sung liên doanh" class="img-fluid">
-                            <h4 class="product-title">Bàn bida Mr Sung liên doanh</h4>
-                            <p class="price-old"><del>28.500.000 đ</del></p>
-                            <p class="price-new">25.500.000 đ</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="banner-pagination"></div>
-            </div>
-        </div>
-    </section>
-    <!-- End Segments -->
-
-    <!-- Slide -->
+    <!-- Design -->
+    <?php
+    $design_title = get_field('design_title','option');
+    $design_url = get_field('design_url','option');
+    $design_gallery = get_field('design_gallery','option');
+    ?>
     <section class="club-design">
         <div class="container text-center">
-            <h2 class="club-title">TƯ VẤN THIẾT KẾ CLUB BI A TRỌN GÓI</h2>
-            <a href="#" class="btn">Xem chi tiết</a>
+            <?php
+            if($design_title) :
+                echo '<h2 class="club-title">'.$design_title.'</h2>';
+            endif;
+
+            ?>
 
             <div class="swiper club-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/393346449_239110472482299_3984228808026988566_n-768x512.jpg"
-                            alt="Club 1" class="img-fluid rounded shadow-sm">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/393015290_239110382482308_1004039999113953144_n-768x512.jpg"
-                            alt="Club 2" class="img-fluid rounded shadow-sm">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/392955889_239110425815637_8692988451617223463_n-768x512.jpg"
-                            alt="Club 3" class="img-fluid rounded shadow-sm">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/392955889_239110425815637_8692988451617223463_n-768x512.jpg"
-                            alt="Club 4" class="img-fluid rounded shadow-sm">
-                    </div>
+                    <?php
+                    if($design_gallery) :
+                        foreach($design_gallery as $gallery) :
+                        ?>
+                        <div class="swiper-slide">
+                            <img src="<?php echo esc_url($gallery['url']); ?>" alt="<?php echo $gallery['alt']; ?>" class="img-fluid rounded shadow-sm">
+                        </div>
+                    <?php
+                    endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
+
+            <?php
+            if($design_url) :
+                $url_link = $design_url['url'] ? $design_url['url'] : '#';
+                $title = $design_url['title'] ? $design_url['title'] : 'Xem chi tiết';
+                $target = $design_url['target'] ? $design_url['target'] : '_self';
+
+                echo '<a href="'.$url_link.'" class="btn" target="'.$target.'">'.$title.'</a>';
+            endif;
+            ?>
         </div>
     </section>
-    <!-- End Slide -->
+    <!-- End Design -->
 
     <!-- New Blog -->
+    <?php
+    $blog_title = get_field('blog_title','option');
+    $blog_list = get_field('blog_object','option');
+    ?>
     <section class="news-blog">
         <div class="container">
-            <h2 class="news-title">TIN TỨC & BLOG</h2>
+            <?php
+            if($blog_title) :
+                echo '<h2 class="news-title">'.$blog_title.'</h2>';
+            endif;
+            ?>
 
             <div class="swiper news-swiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <div class="news-thumb">
-                                <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/393346449_239110472482299_3984228808026988566_n-768x512.jpg"
-                                    alt="Blog 1">
-                            </div>
-                            <div class="news-content">
-                                <p class="news-date">
-                                    <i class="fa fa-calendar"></i> Tháng 8 2, 2025
-                                </p>
-                                <h3 class="news-heading">
-                                    Giới thiệu 3 mẫu bàn nhập Trung mới nhất 2025 tại Quang Huy Billiards
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <div class="news-thumb">
-                                <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/393015290_239110382482308_1004039999113953144_n-768x512.jpg"
-                                    alt="Blog 2">
-                            </div>
-                            <div class="news-content">
-                                <p class="news-date">
-                                    <i class="fa fa-calendar"></i> Tháng 8 29, 2025
-                                </p>
-                                <h3 class="news-heading">
-                                    Hoàn thành giao hàng và lắp đặt 1 bàn bi a tại Tochigi Nhật Bản
-                                </h3>
+                    <?php
+                    if($blog_list) :
+                        foreach($blog_list as $blog) :
+                            $img = get_the_post_thumbnail_url($blog);
+                            $title = get_the_title($blog);
+                            $date = get_the_date('d/m/Y', $blog);
+                            $url = get_the_permalink($blog);
+                        ?>
+                        <div class="swiper-slide">
+                            <div class="news-card">
+                                <div class="news-thumb">
+                                    <a href="<?php echo $url; ?>">
+                                    <img src="<?php echo $img; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" loading="lazy">
+                                    </a>
+                                </div>
+                                <div class="news-content">
+                                    <p class="news-date">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffb128" d="M224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64zM160 304L160 336C160 344.8 167.2 352 176 352L208 352C216.8 352 224 344.8 224 336L224 304C224 295.2 216.8 288 208 288L176 288C167.2 288 160 295.2 160 304zM288 304L288 336C288 344.8 295.2 352 304 352L336 352C344.8 352 352 344.8 352 336L352 304C352 295.2 344.8 288 336 288L304 288C295.2 288 288 295.2 288 304zM432 288C423.2 288 416 295.2 416 304L416 336C416 344.8 423.2 352 432 352L464 352C472.8 352 480 344.8 480 336L480 304C480 295.2 472.8 288 464 288L432 288zM160 432L160 464C160 472.8 167.2 480 176 480L208 480C216.8 480 224 472.8 224 464L224 432C224 423.2 216.8 416 208 416L176 416C167.2 416 160 423.2 160 432zM304 416C295.2 416 288 423.2 288 432L288 464C288 472.8 295.2 480 304 480L336 480C344.8 480 352 472.8 352 464L352 432C352 423.2 344.8 416 336 416L304 416zM416 432L416 464C416 472.8 423.2 480 432 480L464 480C472.8 480 480 472.8 480 464L480 432C480 423.2 472.8 416 464 416L432 416C423.2 416 416 423.2 416 432z"/></svg>
+                                        <?php echo 'Ngày '.$date; ?>
+                                    </p>
+                                    <h3 class="news-heading"><a href="<?php echo $url; ?>"><?php echo $title; ?></a></h3>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <div class="news-thumb">
-                                <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/392955889_239110425815637_8692988451617223463_n-768x512.jpg"
-                                    alt="Blog 3">
-                            </div>
-                            <div class="news-content">
-                                <p class="news-date">
-                                    <i class="fa fa-calendar"></i> Tháng 8 29, 2025
-                                </p>
-                                <h3 class="news-heading">
-                                    Lắp đặt bàn bi-a cho homestay tại Hà Nội
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="news-card">
-                            <div class="news-thumb">
-                                <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/392955889_239110425815637_8692988451617223463_n-768x512.jpg"
-                                    alt="Blog 3">
-                            </div>
-                            <div class="news-content">
-                                <p class="news-date">
-                                    <i class="fa fa-calendar"></i> Tháng 8 29, 2025
-                                </p>
-                                <h3 class="news-heading">
-                                    Lắp đặt bàn bi-a cho homestay tại Hà Nội
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
+                        <?php
+                    endforeach;
+                    endif;
+                    ?>
                 </div>
             </div>
         </div>
@@ -1014,170 +356,72 @@
     <!-- End New Blog -->
 
     <!-- Reson -->
+    <?php
+    $reason_title = get_field('reason_title','option');
+    $reasons = get_field('reasons','option');
+    ?>
     <section class="reason py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h4 class="text-muted reason-subtitle">Lý do bạn lựa chọn</h4>
-                <h3><strong class="text-primary">QUANG HUY BILLIARDS</strong> để hợp tác.</h3>
+                <h4 class="text-muted reason-subtitle">
+                    <?php echo apply_filters('the_content', $reason_title); ?>
+                </h4>
             </div>
             <div class="row">
-                <div class="col-md-6 reason-blog">
-                    <div class="reason-card row">
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Đội ngũ chuyên nghiệp</h5>
-                            <p>
-                                Chúng tôi hướng đến những sản phẩm tốt và phục vụ chuyên nghiệp, đồng hành trong suốt
-                                hành
-                                trình kinh doanh của khách hàng.
-                            </p>
-                            <a href="#" class="see-more">Xem tất cả.</a>
+                <?php
+                if($reasons) :
+                    foreach($reasons as $reason) :
+                        $title = $reason['title'];
+                        $desc = $reason['desc'];
+                        $img = $reason['img'];
+                        $url = $reason['url'];
+                    ?>
+                        <div class="col-md-6 reason-blog">
+                            <div class="reason-card row">
+                                <div class="col-md-6">
+                                    <?php
+                                    if($title) :
+                                        echo '<h5 class="fw-bold">'.$title.'</h5>';
+                                    endif;
+
+                                    if($desc) :
+                                        echo apply_filters('the_content', $desc);
+                                    endif;
+
+                                    if($url) :
+                                        $url_link = $url['url'] ? $url['url'] : '#';
+                                        $title = $url['title'] ? $url['title'] : 'Xem tất cả.';
+                                        $target = $url['target'] ? $url['target'] : '_self';
+
+                                        echo '<a href="'.$url_link.'" class="see-more" target="'.$target.'">'.$title.'</a>';
+                                    endif;
+                                    ?>
+                                </div>
+
+                                <div class="reason-img col-md-6">
+                                    <?php
+                                    if($img) :
+                                        echo '<img src="'.$img.'" class="img-fluid rounded" alt="'.$title.'" title="'.$title.'" loading="lazy">';
+                                    endif;
+                                    ?>
+                                </div>
+                            </div>
                         </div>
-                        <div class="reason-img col-md-6">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/300957010_498890915292953_8218200527664963688_n-e1697804239343.jpg"
-                                class="img-fluid rounded" alt="Đội ngũ chuyên nghiệp">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 reason-blog">
-                    <div class="reason-card row">
-                        <div class="col-md-6">
-                            <h5 class="fw-bold">Đội ngũ chuyên nghiệp</h5>
-                            <p>
-                                Chúng tôi hướng đến những sản phẩm tốt và phục vụ chuyên nghiệp, đồng hành trong suốt
-                                hành
-                                trình kinh doanh của khách hàng.
-                            </p>
-                            <a href="#" class="see-more">Xem tất cả.</a>
-                        </div>
-                        <div class="reason-img col-md-6">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2023/10/bethemestore2-home-pic2.webp"
-                                class="img-fluid rounded" alt="Đội ngũ chuyên nghiệp">
-                        </div>
-                    </div>
-                </div>
+                    <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
         </div>
     </section>
     <!-- End Reson -->
 
     <!-- register -->
-    <section class="youtube-section">
-        <div class="youtube-title">
-            <h2>Xem Quang Huy Billiards trên Youtube</h2>
-        </div>
-
-        <div class="register-section">
-            <div class="register-left">
-                <h3>ĐĂNG KÝ TƯ VẤN</h3>
-                <p>Để được tư vấn về sản phẩm & nhận chính sách giá mới nhất cùng quà tặng.</p>
-            </div>
-            <div class="register-right">
-                <form>
-                    <input type="text" placeholder="Nhập tên khách hàng" />
-                    <input type="text" placeholder="Nhập số điện thoại, ví dụ: 09********" />
-                    <textarea placeholder="Anh chị nhắn lại nhu cầu tại đây để em phục vụ nhanh nhất"></textarea>
-                    <button type="submit">GỬI YÊU CẦU</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    <?php get_template_part('template_parts/section-register'); ?>
     <!-- End register -->
 
-    <!-- new-event2 -->
-    <section class="news-list">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="Rasson Woft nhập Trung" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Rasson Woft nhập Trung – Phiên bản hoàn hảo từ Quang Huy Billiards
-                            </h5>
-                            <p class="news-date">03/08/2025</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="3 mẫu bàn nhập Trung mới nhất" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Giới thiệu 3 mẫu bàn nhập Trung mới nhất 2025 tại Quang Huy Billiards
-                            </h5>
-                            <p class="news-date">02/08/2025</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="Các mẫu bàn bida Aileex chính hãng" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Các mẫu bàn bida Aileex chính hãng mới nhất 2025
-                            </h5>
-                            <p class="news-date">03/02/2025</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="Rasson Woft nhập Trung" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Rasson Woft nhập Trung – Phiên bản hoàn hảo từ Quang Huy Billiards
-                            </h5>
-                            <p class="news-date">03/08/2025</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="3 mẫu bàn nhập Trung mới nhất" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Giới thiệu 3 mẫu bàn nhập Trung mới nhất 2025 tại Quang Huy Billiards
-                            </h5>
-                            <p class="news-date">02/08/2025</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="news-card">
-                        <div class="news-thumb">
-                            <img src="https://quanghuybilliards.com/wp-content/uploads/2025/08/Rasson-Woft-sieu-pham-nhap-Trung.png"
-                                alt="Các mẫu bàn bida Aileex chính hãng" class="img-fluid">
-                        </div>
-                        <div class="news-content p-3">
-                            <h5 class="news-title">
-                                Các mẫu bàn bida Aileex chính hãng mới nhất 2025
-                            </h5>
-                            <p class="news-date">03/02/2025</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End new-event -->
-
     <!-- project -->
-    <section class="posts-timeline">
+    <!-- <section class="posts-timeline">
         <div class="container">
             <div class="row g-0">
                 <div class="col-12">
@@ -1246,7 +490,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- End project -->
 
 </main>

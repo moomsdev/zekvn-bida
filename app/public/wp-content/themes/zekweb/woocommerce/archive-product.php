@@ -37,6 +37,8 @@ do_action( 'woocommerce_before_main_content' );
 			<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 			<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
 			<?php endif; ?>
+
+			
 			<?php
 			/**
 			 * Hook: woocommerce_archive_description.
@@ -57,16 +59,41 @@ do_action( 'woocommerce_before_main_content' );
 				*/
 				do_action( 'woocommerce_before_shop_loop' );
 				woocommerce_product_loop_start();
-				if ( wc_get_loop_prop( 'total' ) ) {
-					while ( have_posts() ) {
-						the_post();
-						/**
-						* Hook: woocommerce_shop_loop.
-						*/
-						do_action( 'woocommerce_shop_loop' );
-						wc_get_template_part( 'content', 'product' );
-					}
-				}
+				// if ( wc_get_loop_prop( 'total' ) ) {
+				// 	while ( have_posts() ) {
+				// 		the_post();
+				// 		/**
+				// 		* Hook: woocommerce_shop_loop.
+				// 		*/
+				// 		do_action( 'woocommerce_shop_loop' );
+				// 		wc_get_template_part( 'content', 'product' );
+				// 	}
+				// }
+				?>
+				<div class="row row-margin">
+					<div class="col-12 col-md-3">
+						<?php get_template_part('sidebar'); ?>
+					</div>
+					<div class="col-12 col-md-9 product">
+						<div class="list-product cart-products">
+							<div class="row row-margin">
+							<?php 
+							if ( wc_get_loop_prop( 'total' ) ) {
+								while ( have_posts() ) {
+									the_post();
+									/**
+									* Hook: woocommerce_shop_loop.
+									*/
+									do_action( 'woocommerce_shop_loop' );
+									wc_get_template_part( 'content', 'product' );
+								}
+							}
+							?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php
 				woocommerce_product_loop_end();
 				/**
 				* Hook: woocommerce_after_shop_loop.

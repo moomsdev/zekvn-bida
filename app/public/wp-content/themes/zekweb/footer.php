@@ -1,7 +1,19 @@
 <footer id="footer">
     <div class="container">
-        <div class="f-widget row">
-            <?php dynamic_sidebar( 'footer'); ?>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="footer-logo">
+                    <a href="<?php echo home_url(); ?>" title="<?php bloginfo('name'); ?>">
+                        <img src="<?php the_field('logo','option') ?>" alt="<?php bloginfo('name');?>">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="footer-menu">
+                    <?php wp_nav_menu( array( 'container' => '','theme_location' => 'footer','menu_class' => 'menu' ) ); ?>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

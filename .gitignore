@@ -1,1 +1,4 @@
 local-site.json
+package-lock.json
+error.log
+php-fpm.log

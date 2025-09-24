@@ -11,7 +11,7 @@
 
             <?php }else{ ?>
             <div class="row row-margin">
-                <div class="col-lg-9 col-md-12">
+                <div class="col-12">
                     <h1 class="page-title"><?php the_title();?></h1>
                     <?php get_template_part('meta'); ?>
                     <div class="page-content">
@@ -34,15 +34,15 @@
                     $args=array(
                     'category__in' => $category_ids,
                     'post__not_in' => array(get_the_ID()),
-                    'posts_per_page' => 4,
+                    'posts_per_page' => 6,
                     );
                     $my_query = new wp_query($args);
                     if( $my_query->have_posts() ): ?>
                     <div class="single-related">
                         <div class="title">Bài viết liên quan</div>
-                        <div class="list">
+                        <div class="row g-4">
                             <?php while ($my_query->have_posts()):$my_query->the_post(); ?>
-                            <div class="item">
+                            <div class="col-12 col-md-6 col-lg-4 item">
                                 <div class="img">
                                     <a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_post_thumbnail('medium', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?></a>
                                 </div>
@@ -56,11 +56,7 @@
                     </div>
                     <?php endif; wp_reset_query();} ?>
                 </div>
-                <div class="col-lg-3 col-md-12">
-                    <div class="page-sidebar">
-                        <?php get_template_part('sidebar'); ?>
-                    </div>
-                </div>
+                
             </div>
             <?php } ?>
         </div>

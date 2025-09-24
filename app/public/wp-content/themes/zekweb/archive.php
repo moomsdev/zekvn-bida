@@ -2,38 +2,40 @@
 <?php $term = get_queried_object(); ?>
 <main id="main">
     <?php get_template_part('breadcrums'); ?>
-    <div class="page-body">
+    <div class="page-body news-list">
         <div class="container">
             <?php if(get_field( 'loai', 'category_'.$a)==3){ ?>
             <?php }elseif(get_field( 'loai', 'category_'.$a)==2){ ?>
             
             <?php }else{ ?>
             <h1 class="page-title"><?php echo single_cat_title();?></h1>
-            <?php if (category_description( $category )) : ?>
-            <div class="category-content">
-                <div class="content-post clearfix">
-                    <?php echo category_description( $category ); ?>
-                </div>
-            </div>
-            <?php endif ?>
             <div class="row row-margin">
-                <div class="col-lg-9 col-md-12 col-12">
+                <div class="col-12">
                     <div class="list-news">
                         <div class="row row-margin">
                             <?php if(have_posts()){ while(have_posts()):the_post();$format=get_post_format();setPostViews($post->ID); ?>
-                            <div class="col-lg-4 col-md-6 col-12 col-item">
-                                <?php get_template_part('loop'); ?>
-                            </div>
+                                <div class="col-md-4">
+                                    <div class="news-card">
+                                        <div class="news-thumb">
+                                            <a href="<?php the_permalink(); ?>">
+                                            <?php the_post_thumbnail('large', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?>
+                                            </a>
+                                        </div>
+                                        <div class="news-content p-3">
+                                            <h5 class="news-title">
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <?php echo get_the_title(); ?>
+                                                </a>
+                                            </h5>
+                                            <p class="news-date"><?php echo get_the_date('d/m/Y'); ?></p>
+                                        </div>
+                                    </div>
+                                </div>
                             <?php endwhile;wp_reset_postdata(); ?>
                             <?php } ?>
                         </div>
                     </div>
                     <?php get_template_part( 'pagination' ); ?>
-                </div>
-                <div class="col-lg-3 col-md-12 col-12">
-                    <div class="page-sidebar">
-                        <?php get_template_part('sidebar'); ?>
-                    </div>
                 </div>
             </div>
             <?php } ?>
