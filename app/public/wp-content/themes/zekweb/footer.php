@@ -1,4 +1,4 @@
-<footer id="footer">
+<!-- <footer id="footer">
     <div class="container">
         <div class="row g-4">
             <div class="col-12 col-md-4">
@@ -34,6 +34,50 @@
             <p>Copyright © 2025 <?php bloginfo('name'); ?>. All rights reserved.</p>
         </div>
     </div>
+</footer> -->
+<footer class="footer bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-3 item">
+                <div class="footer-title">
+                    <h6 class="fw-bold mb-3">
+                        QUANG HUY BILLIARDS – Nhà sản xuất, phân phối, lắp đặt setup vận hành CLB Bida chuyên nghiệp.
+                    </h6>
+                    <p><strong>Văn phòng 1:</strong> P1 Pavilion, Vinhomes Ocean Park, Gia Lâm, Hà Nội.</p>
+                    <p><strong>Văn phòng 2:</strong> Như Quỳnh, Văn Lâm, Hưng Yên.</p>
+                    <p><strong>Văn phòng 3:</strong> Tam Sơn, Tân Định, Lạng Giang, Bắc Giang.</p>
+                    <p><strong>Xưởng sản xuất, kho & Showroom:</strong> Thôn Mụ, Lạc Đạo, Văn Lâm, Hưng Yên.</p>
+                    <p><strong>Văn phòng & kho hàng phía Nam:</strong> 18 Phan Văn Trị, P.10, Q.Gò Vấp, TP.HCM.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 item">
+                <h6 class="fw-bold mb-3">CHÍNH SÁCH</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Chính sách mua hàng</a></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 item">
+                <h6 class="fw-bold mb-3">THÔNG TIN</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#">Dịch vụ</a></li>
+                    <li><a href="#">Khuyến mãi</a></li>
+                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a href="#">Tin tức sự kiện</a></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 item">
+                <h6 class="fw-bold mb-3">KẾT NỐI VỚI CHÚNG TÔI</h6>
+                <ul class="list-unstyled">
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Youtube</a></li>
+                    <li><a href="#">TikTok</a></li>
+                    <li><a href="#">Zalo</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
 <div class="supports">
     <div class="item">
@@ -47,7 +91,8 @@
         </a>
     </div>
     <div class="item">
-        <a href="https://m.me/<?php the_field('messenger','option') ?>" target="_blank" class="messenger" title="Chat Facebook">
+        <a href="https://m.me/<?php the_field('messenger','option') ?>" target="_blank" class="messenger"
+            title="Chat Facebook">
             <img decoding="async" src="<?php bloginfo('template_url' ); ?>/images/support-messenger.png" alt="icon">
         </a>
     </div>
@@ -64,4 +109,5 @@
 <?php wp_footer(); ?>
 </div>
 </body>
+
 </html>

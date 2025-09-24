@@ -14,8 +14,7 @@
 
     ?>
     <section class="banner">
-        <div class="banner-inner"
-            style="background-image: url(<?php echo $banner; ?>);">
+        <div class="banner-inner" style="background-image: url(<?php echo $banner; ?>);">
             <div class="banner-content">
                 <?php
                 if($banner_title) :
@@ -44,9 +43,8 @@
     $services = get_field('services','option');
     ?>
     <section class="blog">
-        <div class="container">
-            <div class="row">
-                <?php
+        <div class="row">
+            <?php
                 if($services) :
                     foreach($services as $service) :
                         $background = $service['background'];
@@ -54,15 +52,14 @@
                         $desc = $service['desc'];
                         $url = $service['url'];
                     ?>
-                    <div class="col-md-4">
-                        <div class="service-card"
-                            style="background-image: url(<?php echo $background; ?>);">
-                            <div class="cart-content">
-                                <?php
+            <div class="col-md-4 item">
+                <div class="service-card" style="background-image: url(<?php echo $background; ?>);">
+                    <div class="cart-content">
+                        <?php
                                 if($title) :
                                     echo '<h2>'.$title.'</h2>';
-                                endif; 
-                                
+                                endif;
+
                                 if($desc) :
                                     echo apply_filters('the_content', $desc);
                                 endif;
@@ -75,14 +72,13 @@
                                     echo '<a href="'.$url_link.'" target="'.$target.'">'.$title.'</a>';
                                 endif;
                                 ?>
-                            </div>
-                        </div>
                     </div>
-                    <?php
+                </div>
+            </div>
+            <?php
                     endforeach;
                 endif;
                 ?>
-            </div>
         </div>
     </section>
     <!-- End Service -->
@@ -109,21 +105,21 @@
         </div>
 
         <div class="container">
-        <?php
+            <?php
         if($latest_prd_list) :
             foreach($latest_prd_list as $prd) :
                 $desc = $prd['desc'];
                 $products = $prd['products'];
                 ?>
-                <div class="latest-prd-list">
-                    <?php
+            <div class="latest-prd-list">
+                <?php
                     if($desc) :
                         echo '<h3 class="subtitle">'.apply_filters('the_content', $desc).'</h3>';
                     endif;
                     ?>
 
-                    <div class="swiper swiper-product-5 cart-products">
-                        <div class="swiper-wrapper">
+                <div class="swiper swiper-product-5 cart-products">
+                    <div class="swiper-wrapper">
                         <?php
                         if($products) :
                             foreach($products as $item) :
@@ -133,24 +129,24 @@
                                 $product = wc_get_product($item);
                                 $price = $product ? $product->get_price_html() : '';
                             ?>
-                                <div class="swiper-slide">
-                                    <div class="product-card">
-                                        <img src="<?php echo $img; ?>"
-                                            alt="<?php echo $title; ?>" class="img-fluid" title="<?php echo $title; ?>" loading="lazy">
-                                        <h4 class="product-title"><?php echo $title; ?></h4>
-                                        <div class="price"><?php echo $price; ?></div>
-                                    </div>
-                                </div>
-                            <?php
+                        <div class="swiper-slide">
+                            <div class="product-card">
+                                <img src="<?php echo $img; ?>" alt="<?php echo $title; ?>" class="img-fluid"
+                                    title="<?php echo $title; ?>" loading="lazy">
+                                <h4 class="product-title"><?php echo $title; ?></h4>
+                                <div class="price"><?php echo $price; ?></div>
+                            </div>
+                        </div>
+                        <?php
                             endforeach;
                         endif;
                         ?>
-                        </div>
-                        <div class="banner-pagination"></div>
                     </div>
+                    <div class="banner-pagination"></div>
                 </div>
+            </div>
 
-                <?php
+            <?php
             endforeach;
         endif;
         ?>
@@ -190,7 +186,7 @@
                 $title = $category['title'];
                 $desc = $category['desc'];
                 $catId = $category['prd_cat'];
-                
+
                 if($qtt_slide == 'nam') :
                     $swiper_class = 'swiper-product-5';
                 elseif($qtt_slide == 'ba') :
@@ -199,22 +195,22 @@
                     $swiper_class = 'swiper-product-4';
                 endif;
                 ?>
-                    <div class="container">
-                        <?php
+        <div class="container">
+            <?php
 
                         if($title) :
-                            echo '<h2>'.$title.'</h2>';
+                            echo '<h3 class="title-header">'.$title.'</h3>';
                         endif;
 
                         if($desc) :
-                            echo '<h3 class="subtitle">'.$desc.'</h3>';
+                            echo '<p class="subtitle">'.$desc.'</p>';
                         endif;
                         ?>
-                        
-                        <div class="swiper <?php echo $swiper_class; ?> cart-products">
-                            <div class="swiper-wrapper">
-                                <?php
-                                if($catId): 
+
+            <div class="swiper <?php echo $swiper_class; ?> cart-products">
+                <div class="swiper-wrapper">
+                    <?php
+                                if($catId):
                                     $args = array(
                                         'post_type' => 'product', // Post type Album
                                         'posts_per_page' => 10,
@@ -226,32 +222,33 @@
                                             ),
                                         ),
                                     );
-                                    
+
                                     $product_posts = new WP_Query($args);
-                                    
+
                                     if($product_posts->have_posts()):
                                         while($product_posts->have_posts()): $product_posts->the_post();
                                             $product = wc_get_product(get_the_ID());
                                             $price = $product ? $product->get_price_html() : '';
                                         ?>
-                                            <div class="swiper-slide">
-                                                <div class="product-card">
-                                                    <img class="img-fluid" src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>" title="<?php the_title(); ?>" loading="lazy">
-                                                    <h4 class="product-title"><?php the_title(); ?></h4>
-                                                    <div class="price"><?php echo $price; ?></div>
-                                                </div>
-                                            </div>
-                                        <?php
+                    <div class="swiper-slide">
+                        <div class="product-card">
+                            <img class="img-fluid" src="<?php echo get_the_post_thumbnail_url(); ?>"
+                                alt="<?php the_title(); ?>" title="<?php the_title(); ?>" loading="lazy">
+                            <h4 class="product-title"><?php the_title(); ?></h4>
+                            <div class="price"><?php echo $price; ?></div>
+                        </div>
+                    </div>
+                    <?php
                                         endwhile;
                                         wp_reset_postdata();
                                     endif;
                                     ?>
-                            </div>
+                </div>
 
-                            <div class="banner-pagination"></div>
-                        </div>
-                    </div>
-                <?php
+                <div class="banner-pagination"></div>
+            </div>
+        </div>
+        <?php
                 endif;
             endforeach;
         endif;
@@ -283,9 +280,10 @@
                     if($design_gallery) :
                         foreach($design_gallery as $gallery) :
                         ?>
-                        <div class="swiper-slide">
-                            <img src="<?php echo esc_url($gallery['url']); ?>" alt="<?php echo $gallery['alt']; ?>" class="img-fluid rounded shadow-sm">
-                        </div>
+                    <div class="swiper-slide">
+                        <img src="<?php echo esc_url($gallery['url']); ?>" alt="<?php echo $gallery['alt']; ?>"
+                            class="img-fluid rounded shadow-sm">
+                    </div>
                     <?php
                     endforeach;
                     endif;
@@ -329,23 +327,28 @@
                             $date = get_the_date('d/m/Y', $blog);
                             $url = get_the_permalink($blog);
                         ?>
-                        <div class="swiper-slide">
-                            <div class="news-card">
-                                <div class="news-thumb">
-                                    <a href="<?php echo $url; ?>">
-                                    <img src="<?php echo $img; ?>" alt="<?php echo $title; ?>" title="<?php echo $title; ?>" loading="lazy">
-                                    </a>
-                                </div>
-                                <div class="news-content">
-                                    <p class="news-date">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#ffb128" d="M224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64zM160 304L160 336C160 344.8 167.2 352 176 352L208 352C216.8 352 224 344.8 224 336L224 304C224 295.2 216.8 288 208 288L176 288C167.2 288 160 295.2 160 304zM288 304L288 336C288 344.8 295.2 352 304 352L336 352C344.8 352 352 344.8 352 336L352 304C352 295.2 344.8 288 336 288L304 288C295.2 288 288 295.2 288 304zM432 288C423.2 288 416 295.2 416 304L416 336C416 344.8 423.2 352 432 352L464 352C472.8 352 480 344.8 480 336L480 304C480 295.2 472.8 288 464 288L432 288zM160 432L160 464C160 472.8 167.2 480 176 480L208 480C216.8 480 224 472.8 224 464L224 432C224 423.2 216.8 416 208 416L176 416C167.2 416 160 423.2 160 432zM304 416C295.2 416 288 423.2 288 432L288 464C288 472.8 295.2 480 304 480L336 480C344.8 480 352 472.8 352 464L352 432C352 423.2 344.8 416 336 416L304 416zM416 432L416 464C416 472.8 423.2 480 432 480L464 480C472.8 480 480 472.8 480 464L480 432C480 423.2 472.8 416 464 416L432 416C423.2 416 416 423.2 416 432z"/></svg>
-                                        <?php echo 'Ngày '.$date; ?>
-                                    </p>
-                                    <h3 class="news-heading"><a href="<?php echo $url; ?>"><?php echo $title; ?></a></h3>
-                                </div>
+                    <div class="swiper-slide">
+                        <div class="news-card">
+                            <div class="news-thumb">
+                                <a href="<?php echo $url; ?>">
+                                    <img src="<?php echo $img; ?>" alt="<?php echo $title; ?>"
+                                        title="<?php echo $title; ?>" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="news-content">
+                                <p class="news-date">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                                        <!--!Font Awesome Free v7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                        <path fill="#ffb128"
+                                            d="M224 64C241.7 64 256 78.3 256 96L256 128L384 128L384 96C384 78.3 398.3 64 416 64C433.7 64 448 78.3 448 96L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 96C192 78.3 206.3 64 224 64zM160 304L160 336C160 344.8 167.2 352 176 352L208 352C216.8 352 224 344.8 224 336L224 304C224 295.2 216.8 288 208 288L176 288C167.2 288 160 295.2 160 304zM288 304L288 336C288 344.8 295.2 352 304 352L336 352C344.8 352 352 344.8 352 336L352 304C352 295.2 344.8 288 336 288L304 288C295.2 288 288 295.2 288 304zM432 288C423.2 288 416 295.2 416 304L416 336C416 344.8 423.2 352 432 352L464 352C472.8 352 480 344.8 480 336L480 304C480 295.2 472.8 288 464 288L432 288zM160 432L160 464C160 472.8 167.2 480 176 480L208 480C216.8 480 224 472.8 224 464L224 432C224 423.2 216.8 416 208 416L176 416C167.2 416 160 423.2 160 432zM304 416C295.2 416 288 423.2 288 432L288 464C288 472.8 295.2 480 304 480L336 480C344.8 480 352 472.8 352 464L352 432C352 423.2 344.8 416 336 416L304 416zM416 432L416 464C416 472.8 423.2 480 432 480L464 480C472.8 480 480 472.8 480 464L480 432C480 423.2 472.8 416 464 416L432 416C423.2 416 416 423.2 416 432z" />
+                                    </svg>
+                                    <?php echo 'Ngày '.$date; ?>
+                                </p>
+                                <h3 class="news-heading"><a href="<?php echo $url; ?>"><?php echo $title; ?></a></h3>
                             </div>
                         </div>
-                        <?php
+                    </div>
+                    <?php
                     endforeach;
                     endif;
                     ?>
@@ -376,12 +379,12 @@
                         $img = $reason['img'];
                         $url = $reason['url'];
                     ?>
-                        <div class="col-md-6 reason-blog">
-                            <div class="reason-card row">
-                                <div class="col-md-6">
-                                    <?php
+                <div class="col-md-6 reason-blog">
+                    <div class="reason-card">
+                        <div class="reason-content">
+                            <?php
                                     if($title) :
-                                        echo '<h5 class="fw-bold">'.$title.'</h5>';
+                                        echo '<h3 class="title-card">'.$title.'</h3>';
                                     endif;
 
                                     if($desc) :
@@ -396,18 +399,18 @@
                                         echo '<a href="'.$url_link.'" class="see-more" target="'.$target.'">'.$title.'</a>';
                                     endif;
                                     ?>
-                                </div>
+                        </div>
 
-                                <div class="reason-img col-md-6">
-                                    <?php
+                        <div class="reason-img">
+                            <?php
                                     if($img) :
                                         echo '<img src="'.$img.'" class="img-fluid rounded" alt="'.$title.'" title="'.$title.'" loading="lazy">';
                                     endif;
                                     ?>
-                                </div>
-                            </div>
                         </div>
-                    <?php
+                    </div>
+                </div>
+                <?php
                     endforeach;
                 endif;
                 ?>
