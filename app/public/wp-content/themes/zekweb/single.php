@@ -38,17 +38,25 @@
                     );
                     $my_query = new wp_query($args);
                     if( $my_query->have_posts() ): ?>
-                    <div class="single-related">
+                    <div class="single-related news-list">
                         <div class="title">Bài viết liên quan</div>
                         <div class="row g-4">
                             <?php while ($my_query->have_posts()):$my_query->the_post(); ?>
                             <div class="col-12 col-md-6 col-lg-4 item">
-                                <div class="img">
-                                    <a href="<?php the_permalink();?>" title="<?php the_title();?>"><?php the_post_thumbnail('medium', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?></a>
-                                </div>
-                                <div class="info">
-                                    <div class="name"><a href="<?php the_permalink();?>"><?php the_title();?></a></div>
-                                    <div class="date"><?php the_time('d/m/Y'); ?></div>
+                                <div class="news-card">
+                                    <div class="news-thumb">
+                                        <a href="<?php the_permalink(); ?>">
+                                        <?php the_post_thumbnail('large', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?>
+                                        </a>
+                                    </div>
+                                    <div class="news-content p-3">
+                                        <h5 class="news-title">
+                                            <a href="<?php the_permalink(); ?>">
+                                                <?php echo get_the_title(); ?>
+                                            </a>
+                                        </h5>
+                                        <p class="news-date"><?php echo get_the_date('d/m/Y'); ?></p>
+                                    </div>
                                 </div>
                             </div>
                             <?php endwhile; ?>

@@ -45,7 +45,7 @@
     ?>
     <section class="blog">
         <div class="container">
-            <div class="row g-4">
+            <div class="row">
                 <?php
                 if($services) :
                     foreach($services as $service) :

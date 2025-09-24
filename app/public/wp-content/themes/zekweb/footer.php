@@ -1,19 +1,37 @@
 <footer id="footer">
     <div class="container">
-        <div class="row">
+        <div class="row g-4">
             <div class="col-12 col-md-4">
                 <div class="footer-logo">
                     <a href="<?php echo home_url(); ?>" title="<?php bloginfo('name'); ?>">
                         <img src="<?php the_field('logo','option') ?>" alt="<?php bloginfo('name');?>">
                     </a>
                 </div>
+
+                <div class="info">
+                    <p><strong>Địa chỉ:</strong> <?php the_field('address','option') ?></p>
+                    <p><strong>Hotline:</strong> <?php the_field('hotline','option') ?></p>
+                    <p><strong>Email:</strong> <?php the_field('email','option') ?></p>
+                </div>
             </div>
 
             <div class="col-12 col-md-4">
+                <h3 class="menu-title">Menu</h3>
                 <div class="footer-menu">
                     <?php wp_nav_menu( array( 'container' => '','theme_location' => 'footer','menu_class' => 'menu' ) ); ?>
                 </div>
             </div>
+
+            <div class="col-12 col-md-4">
+                <h3 class="menu-title">Useful</h3>
+                <div class="footer-menu">
+                    <?php wp_nav_menu( array( 'container' => '','theme_location' => 'footer_usefull','menu_class' => 'menu' ) ); ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>Copyright © 2025 <?php bloginfo('name'); ?>. All rights reserved.</p>
         </div>
     </div>
 </footer>

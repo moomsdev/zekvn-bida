@@ -136,6 +136,7 @@ add_filter('the_content', 'filter_ptags_on_images');
 
 register_nav_menu( 'main', 'Main' );
 register_nav_menu( 'footer', 'Footer' );
+register_nav_menu( 'footer_usefull', 'Footer Useful' );
 register_sidebar( array(
     'name'          => __( 'Footer', 'theme_text_domain' ),
     'id'            => 'footer',
