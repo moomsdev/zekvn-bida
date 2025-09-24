@@ -135,6 +135,7 @@ function filter_ptags_on_images($content){
 add_filter('the_content', 'filter_ptags_on_images');
 
 register_nav_menu( 'main', 'Main' );
+register_nav_menu( 'footer', 'Footer' );
 register_sidebar( array(
     'name'          => __( 'Footer', 'theme_text_domain' ),
     'id'            => 'footer',
@@ -385,7 +386,7 @@ add_filter('the_generator', 'crunchify_remove_version');
 
 remove_action('wp_head', 'rest_output_link_wp_head', 10);
 remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
-remove_action('template_redirect', 'rest_output_link_header', 11, 0);
+remove_action('template_redirect', 'rest_output_link_header', 11);
 
 remove_action ('wp_head', 'rsd_link');
 remove_action( 'wp_head', 'wlwmanifest_link');
@@ -725,5 +726,76 @@ function enqueue_jquery_script() {
 add_action('wp_enqueue_scripts', 'enqueue_jquery_script');
 // End
 
+// AJAX Search functionality
+function ajax_search_handler() {
+    // Kiểm tra nonce để bảo mật
+    if (!wp_verify_nonce($_POST['nonce'], 'ajax_search_nonce')) {
+        wp_die('Security check failed');
+    }
+    
+    $search_term = sanitize_text_field($_POST['search_term']);
+    
+    if (empty($search_term)) {
+        wp_send_json_error('Search term is empty');
+    }
+    
+    // Tìm kiếm posts
+    $args = array(
+        'post_type' => array('post', 'page', 'product'),
+        'post_status' => 'publish',
+        'posts_per_page' => 5,
+        's' => $search_term,
+        'meta_query' => array(
+            'relation' => 'OR',
+            array(
+                'key' => 'post_views_count',
+                'compare' => 'EXISTS'
+            ),
+            array(
+                'key' => 'post_views_count',
+                'compare' => 'NOT EXISTS'
+            )
+        )
+    );
+    
+    $search_query = new WP_Query($args);
+    $results = array();
+    
+    if ($search_query->have_posts()) {
+        while ($search_query->have_posts()) {
+            $search_query->the_post();
+            
+            $results[] = array(
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+                'permalink' => get_permalink(),
+                'excerpt' => wp_trim_words(get_the_excerpt(), 15, '...'),
+                'thumbnail' => get_the_post_thumbnail_url(get_the_ID(), 'thumbnail'),
+                'date' => get_the_date('d/m/Y'),
+                'views' => getPostViews(get_the_ID())
+            );
+        }
+        wp_reset_postdata();
+    }
+    
+    wp_send_json_success($results);
+}
+
+// Đăng ký AJAX actions
+add_action('wp_ajax_ajax_search', 'ajax_search_handler');
+add_action('wp_ajax_nopriv_ajax_search', 'ajax_search_handler');
+
+// Enqueue search script
+function enqueue_ajax_search_script() {
+    wp_enqueue_script('ajax-search', get_template_directory_uri() . '/js/ajax-search.js', array('jquery'), '1.0.0', true);
+    
+    // Truyền AJAX URL và nonce cho JavaScript
+    wp_localize_script('ajax-search', 'ajax_search_object', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('ajax_search_nonce'),
+        'template_url' => get_template_directory_uri()
+    ));
+}
+add_action('wp_enqueue_scripts', 'enqueue_ajax_search_script');
 
 ?>

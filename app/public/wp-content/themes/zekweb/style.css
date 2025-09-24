@@ -404,7 +404,6 @@ a img.aligncenter{display:block;margin-left:auto;margin-right:auto}
 	.backtop a{width: 44px;height: 44px;}
 	.backtop a img{max-width: 24px;max-height: 24px;}
 
-	#header .col-touch{display: block;}
 	#touch-menu{width: 24px;height: 24px;cursor: pointer;background-image: url(images/touch.png);background-size: cover;background-repeat: no-repeat;background-position: center;}
 	.line-dark{opacity: 0;transition: all .5s;visibility: hidden;width: 100%;height: 100%;position: fixed;top: 0;left: 0;background-color: rgba(0,0,0,.6);z-index: 999}
 	body.active-menu .line-dark{opacity: 1;visibility: visible;cursor: url(images/close.png) 20 20,default;}

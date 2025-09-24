@@ -155,7 +155,7 @@
       },
     },
   });
-  var swiper = new Swiper(".swiper-products", {
+  var swiper = new Swiper(".swiper-product-4", {
     loop: true,
     autoplay: {
       delay: 6000,
@@ -164,15 +164,14 @@
     breakpoints: {
       0: {
         slidesPerView: 1,
+        spaceBetween: 12,
       },
-      429: {
-        slidesPerView: 1,
-      },
-      575: {
-        slidesPerView: 1,
+      525: {
+        slidesPerView: 2,
+        spaceBetween: 12,
       },
       768: {
-        slidesPerView: 1,
+        slidesPerView: 3,
       },
       992: {
         slidesPerView: 4,
@@ -180,7 +179,7 @@
       },
     },
   });
-  var swiper = new Swiper(".swiper-trademark", {
+  var swiper = new Swiper(".swiper-product-5", {
     loop: true,
     autoplay: {
       delay: 6000,
@@ -205,7 +204,7 @@
       },
     },
   });
-  var swiper = new Swiper(".swiper-table", {
+  var swiper = new Swiper(".swiper-product-3", {
     loop: true,
     autoplay: {
       delay: 6000,
