@@ -1,7 +1,7 @@
 jQuery(document).ready(function($) {
     let searchTimeout;
-    const searchInput = $('.search input[type="search"]');
-    const searchContainer = $('.search');
+    const searchInput = $('.search-custom input[type="search"]');
+    const searchContainer = $('.search-custom');
     
     // Tạo container cho kết quả tìm kiếm
     if (!$('.search-results').length) {

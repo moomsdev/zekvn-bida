@@ -19,31 +19,21 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
+
 // Check if the product is a valid WooCommerce product and ensure its visibility before proceeding.
 if ( ! is_a( $product, WC_Product::class ) || ! $product->is_visible() ) {
 	return;
 }
 ?>
-<!-- <div <?php wc_product_class( 'item-product', $product ); ?>>
-	<div class="img">
-		<a href="<?php the_permalink()?>" title="<?php the_title(); ?>"><?php the_post_thumbnail('large', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?></a>
-	</div>
-	<div class="info">
-		<h3 class="name"><a href="<?php the_permalink()?>"><?php the_title(); ?></a></h3>
-		<?php wc_get_template( 'loop/price.php' ); ?>
-	</div>
-</div> -->
-
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-4 cart-products">
 	<div class="inner product-card">
 		<a href="<?php the_permalink()?>" title="<?php the_title(); ?>">
+			<div class="sale-percent">
+				<?php wc_get_template( 'loop/sale-flash.php' ); ?>
+			</div>
 			<?php the_post_thumbnail('large', array('alt'   => trim(strip_tags( $post->post_title )),'title' => trim(strip_tags( $post->post_title )),)); ?>
+			<h4 class="product-title"><?php the_title(); ?></h4>
 		</a>
-
-		<h4 class="product-title"><?php the_title(); ?></h4>
-		
-		<div class="price">
-			<?php wc_get_template( 'loop/price.php' ); ?>
-		</div>
+		<?php wc_get_template( 'loop/price.php' ); ?>
 	</div>
 </div>

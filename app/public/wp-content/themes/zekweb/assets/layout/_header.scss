@@ -2,7 +2,7 @@
 @use '../utilities/mixin' as *;
 
 /* AJAX Search Styles */
-.search {
+.search-custom {
     position: relative;
     width: 100%;
     max-width: 600px;
@@ -262,8 +262,21 @@ mark {
     background: #a8a8a8;
 }
 
-
 header {
+    .slogan {
+        padding: 5px 0;
+        background-color: #000;
+
+        marquee {
+            margin: 0;
+            font-weight: 500;
+            font-style: normal;
+            line-height: normal;
+            color: #FFF;
+    
+            @include resFont(14px, 16px);
+        }
+    }
     .header-main {
         background-color: #fff;
     }
@@ -288,17 +301,31 @@ header {
         }
 
         ul {
+            position: relative;
+            margin-bottom: 0;
+            padding: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             list-style: none;
 
             li {
-                &.current_page_item a {
-                    color: $primaryColor;
+                position: relative;
+
+                &.current_page_item {
+                    &.menu-item-has-children {
+                        &:after {
+                            border-top: 2px solid $primaryColor !important;
+                            border-left: 2px solid $primaryColor !important;
+                        }  
+                    }
+                    a {
+                        color: $primaryColor;
+                    }
                 }
 
                 a {
+                    display: block;
                     padding: 10px 20px;
                     font-size: 14px;
                     text-transform: uppercase;
@@ -306,6 +333,85 @@ header {
                     &:hover {
                         color: $primaryColor;
                     }
+                }
+
+                &:hover {
+                    ul.sub-menu {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+
+                ul.sub-menu {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: max-content;
+                    list-style: none;
+                    visibility: hidden;
+                    opacity: 0;
+                    transform: perspective(600px) rotateX(0);
+                    -webkit-transform-origin: 0 0 0;
+                    transition: 0.3s all;
+                    z-index: 12;
+                    display: block;
+
+                    li {
+                        position: relative;
+                        width: 100%;
+                        min-width: fit-content;
+
+                        a {
+                            padding: 10px;
+                            padding-right: 50px;
+                            font-size: 14px;
+                            text-decoration: none !important;
+                            text-align: left;
+                            border-bottom: 1px solid #E6E6E6;
+                            display: block;
+                            background: #fff;
+                            color: $textColor;
+
+                            &:hover {
+                                color: $primaryColor;
+                            }
+                        }
+
+                        ul.sub-menu {
+                            position: absolute;
+                            top: 0;
+                            left: 100%;
+                            list-style: none;
+                            visibility: hidden;
+                            opacity: 0;
+                        }
+
+                        &:hover {
+                            ul.sub-menu {
+                                visibility: visible;
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+
+                &.menu-item-has-children {
+                    &:after {
+                        position: absolute;
+                        top: 50%;
+                        right: 5px;
+                        transform: translateY(-50%);
+                        content: '';
+                        width: 7px;
+                        height: 7px;
+                        //arrow down with css
+                        border-top: 2px solid $textColor;
+                        border-left: 2px solid $textColor;
+                        transform: translateY(-80%) rotate(225deg);
+                        transition: all 0.3s ease;
+
+                    }
+                    
                 }
             }
         }

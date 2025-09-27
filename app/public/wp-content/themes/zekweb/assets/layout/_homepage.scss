@@ -314,8 +314,6 @@ body {
     border-radius: 16px;
     background: #fff;
     overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
     gap: 20px;
 
@@ -380,7 +378,6 @@ body {
     font-size: 14px;
     padding: 10px 25px;
     border-radius: 8px;
-    margin-bottom: 40px;
     border: solid 1px $subColor;
     background-color: $subColor;
     color: #fff;
@@ -458,7 +455,7 @@ body {
       .news-date {
         font-size: 14px;
         color: #f9a825;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -567,9 +564,9 @@ body {
       flex-direction: column;
 
       .reason-img {
-        margin-top: 20px;
         order: 1;
       }
+
       .reason-content {
         order: 2;
       }
@@ -889,7 +886,7 @@ h1.page-title {
   font-size: 28px;
   font-weight: 700;
   color: #111;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -915,10 +912,10 @@ h1.page-title {
 }
 
 .page-body {
-  padding: 30px 0;
+  padding: 0 0 20px 0;
 
   @include mediaMaxWidth($md) {
-    padding: 20px 0;
+    padding: 15spx 0;
   }
 }
 
@@ -960,5 +957,30 @@ form.wpcf7-form {
     @include mediaMaxWidth($md) {
       max-height: 82px;
     }
+  }
+}
+
+// popup
+.popmake {
+  .pum-title {
+    text-align: center;
+  }
+}
+
+// .home main#main,
+// .single main#main {
+//   padding-top: 0;
+// }
+
+// main#main {
+//   padding-top: 30px;
+// }
+
+.breadcrumbs {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+
+  p {
+    margin-bottom: 0;
   }
 }
