@@ -296,3 +296,15 @@
         }
     }
 }
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li a::before {
+    width: 18px;
+    height: 18px;
+}
+
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:active::before,
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:focus::before,
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:hover::before,
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a::before {
+    content: '✓';
+    font-size: 14px;
+}
