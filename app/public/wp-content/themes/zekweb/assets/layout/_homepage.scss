@@ -96,12 +96,6 @@ body {
 .blog {
   padding: 0 20px;
 
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-  }
-
   .item {
     display: flex;
     flex-direction: column;
@@ -382,7 +376,7 @@ body {
     text-align: center;
     font-family: $subFont;
     font-weight: 600;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     @include resFont(20px, 26px);
 
@@ -405,7 +399,7 @@ body {
   }
 
   .club-swiper {
-    padding-bottom: 60px;
+    padding-bottom: 30px;
 
     .swiper-slide {
       img {
@@ -453,7 +447,7 @@ body {
     text-align: center;
     font-weight: 700;
     color: #fff;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     @include resFont(20px, 26px);
 
@@ -582,7 +576,7 @@ body {
     font-family: $subFont;
     line-height: 1;
     font-weight: 600;
-    margin-bottom: 40px !important;
+    margin-bottom: 30px !important;
     color: #4c4d52 !important;
     text-transform: uppercase;
 
@@ -1029,10 +1023,6 @@ form.wpcf7-form {
   p {
     margin-bottom: 0;
   }
-}
-
-.swiper  {
-  overflow: visible !important;
 }
 
 h3 {
