@@ -60,7 +60,24 @@ if ( post_password_required() ) {
 				 * @hooked WC_Structured_Data::generate_product_data() - 60
 				 */
 				do_action( 'woocommerce_single_product_summary' );
+
+				$popup_reg_title = get_field('popup_reg_title','option');
+				$popup_reg_desc = get_field('popup_reg_desc','option');
+				$popup_reg_note = get_field('popup_reg_note','option');
 				?>
+				<section class="form-reg">
+
+				<?php if ($popup_reg_title) :
+                    echo '<h2 class="title">' . $popup_reg_title . '</h2>';
+                    endif;
+
+                    if ($popup_reg_desc) :
+                        echo '<div class="desc">' . apply_filters('the_content', $popup_reg_desc) . '</div>';
+                    endif;
+
+                    echo do_shortcode('[contact-form-7 id="1fa2417" title="Đăng kí tư vấn (chi tiết sản phẩm)"]');
+				?>
+				</section>
 			</div>
 		</div>
 	</div>

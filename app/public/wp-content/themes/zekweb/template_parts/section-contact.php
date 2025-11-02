@@ -11,10 +11,10 @@ $desc = get_field('contact_desc','option');
 
             <div class="quote-content">
                 <?php
-            if($desc) :
-                echo apply_filters('the_content', $desc);
-            endif;
-            ?>
+                if($desc) :
+                    echo apply_filters('the_content', $desc);
+                endif;
+                ?>
 
                 <div class="quote-form">
                     <?php echo do_shortcode('[contact-form-7 id="d4e589b" title="Liên hệ"]'); ?>

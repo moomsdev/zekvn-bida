@@ -264,5 +264,280 @@
       },
     },
   });
+  // Cookie helper functions
+  function setCookie(name, value, hours) {
+    var expires = new Date();
+    expires.setTime(expires.getTime() + (hours * 60 * 60 * 1000));
+    document.cookie = name + '=' + value + ';expires=' + expires.toUTCString() + ';path=/';
+  }
+  
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+  
+  function deleteCookie(name) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
+  
+  // Countdown Timer - 12 hours with cookie (only applies to blocks with 4 items)
+  function startCountdown() {
+    var cookieName = 'promotion_countdown';
+    var endTime;
+    
+    // Check if countdown already exists in cookie
+    var savedEndTime = getCookie(cookieName);
+    
+    if (savedEndTime) {
+      // Use existing countdown time from cookie
+      endTime = parseInt(savedEndTime);
+    } else {
+      // Create new countdown - 12 hours from now
+      endTime = new Date().getTime() + (12 * 60 * 60 * 1000);
+      // Save to cookie for 12 hours
+      setCookie(cookieName, endTime.toString(), 12);
+    }
+    
+    // Update countdown every second
+    var countdownInterval = setInterval(function() {
+      var now = new Date().getTime();
+      var timeLeft = endTime - now;
+      
+      // If countdown is finished
+      if (timeLeft < 0) {
+        clearInterval(countdownInterval);
+        $('.time-countdown .time-item .time-value').text('00');
+        // Delete cookie when countdown ends
+        deleteCookie(cookieName);
+        return;
+      }
+      
+      // Calculate time units
+      var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      // Update only countdown blocks with 4 items (skip product-sale popup)
+      $('.time-countdown').each(function() {
+        var $container = $(this);
+        if ($container.closest('#popup-product-sale').length) {
+          return; // skip popup-specific countdown
+        }
+        var itemsCount = $container.find('.time-item').length;
+        if (itemsCount === 4) {
+          $container.find('.time-item:nth-child(1) .time-value').text(days.toString().padStart(2, '0'));
+          $container.find('.time-item:nth-child(2) .time-value').text(hours.toString().padStart(2, '0'));
+          $container.find('.time-item:nth-child(3) .time-value').text(minutes.toString().padStart(2, '0'));
+          $container.find('.time-item:nth-child(4) .time-value').text(seconds.toString().padStart(2, '0'));
+        }
+      });
+    }, 1000);
+  }
+  
+  // Start countdown when page loads
+  startCountdown();
   //
+
+  function showPopup() {
+    // Kiểm tra xem popupData có tồn tại không
+    if (typeof popupData === 'undefined' || !popupData.notifications) {
+        console.log('popupData không tồn tại hoặc không có notifications');
+        return;
+    }
+    
+    // popupData được truyền từ file functions.php
+    const notifications = popupData.notifications;
+
+    if (notifications.length === 0) {
+        console.log('Không có thông báo nào để hiển thị');
+        return; // Không làm gì nếu không có thông báo nào
+    }
+
+    let currentIndex = 0;
+
+    const showNextPopup = () => {
+        // Lấy thông tin
+        const currentNotification = notifications[currentIndex];
+
+        // Cập nhật nội dung vào HTML
+        $('#popup-name').text(currentNotification.name);
+        $('#popup-action').text(currentNotification.action);
+        $('#popup-time').text(currentNotification.time);
+        $('#popup-avatar').attr('src', currentNotification.image);
+
+        // Hiển thị popup
+        $('#social-proof-popup').addClass('show');
+
+        // Hẹn giờ ẩn popup sau 5 giây
+        setTimeout(() => {
+            $('#social-proof-popup').removeClass('show');
+        }, 5000); // 5 giây hiển thị
+
+        // Chuyển sang thông báo tiếp theo
+        currentIndex = (currentIndex + 1) % notifications.length;
+    };
+
+    // Bắt đầu vòng lặp, mỗi 8 giây sẽ hiển thị một thông báo mới
+    setInterval(showNextPopup, 8000); // 3 giây chờ + 5 giây hiển thị = 8 giây
+  }
+
+  showPopup();
+
+  // Auto show homepage modal after 5 seconds
+  // Purpose: On homepage, display Bootstrap modal with id `popup-homepage` after delay
+  if (document.body.classList.contains('home')) {
+    setTimeout(function () {
+      var modalEl = document.getElementById('popup-homepage');
+      if (!modalEl) return;
+
+      // Prefer Bootstrap 5 Modal API if available
+      if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+        var instance = bootstrap.Modal.getOrCreateInstance(modalEl);
+        instance.show();
+        return;
+      }
+
+      // Fallback: jQuery modal if integrated (Bootstrap 4 style)
+      if (typeof jQuery !== 'undefined' && typeof jQuery(modalEl).modal === 'function') {
+        jQuery(modalEl).modal('show');
+        return;
+      }
+
+      // Last resort: toggle minimal classes/attrs to show
+      modalEl.classList.add('show');
+      modalEl.style.display = 'block';
+      modalEl.setAttribute('aria-modal', 'true');
+      modalEl.removeAttribute('aria-hidden');
+    }, 2000);
+  }
+
+  // Auto show WooCommerce popup after 5 seconds on Woo pages
+  // Purpose: Display `#popup-product-sale` on WooCommerce-related pages after delay
+  (function () {
+    var body = document.body;
+    var isWooPage = body.classList.contains('home');
+                    // body.classList.contains('woocommerce-page') ||
+                    // body.classList.contains('single-product');
+    if (!isWooPage) return;
+
+    setTimeout(function () {
+      var modalEl = document.getElementById('popup-product-sale');
+      if (!modalEl) return;
+
+      // Prefer Bootstrap 5 Modal API if available
+      if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+        var instance = bootstrap.Modal.getOrCreateInstance(modalEl);
+        instance.show();
+        return;
+      }
+
+      // Fallback: jQuery modal if integrated (Bootstrap 4 style)
+      if (typeof jQuery !== 'undefined' && typeof jQuery(modalEl).modal === 'function') {
+        jQuery(modalEl).modal('show');
+        return;
+      }
+
+      // Last resort: toggle minimal classes/attrs to show
+      modalEl.classList.add('show');
+      modalEl.style.display = 'block';
+      modalEl.setAttribute('aria-modal', 'true');
+      modalEl.removeAttribute('aria-hidden');
+    }, 15000);
+  })();
+
+  // Product popup countdown based on days value and cookie
+  // Purpose: Use days from DOM, persist endTime in cookie with lifetime = days
+  (function () {
+    var modalEl = document.getElementById('popup-product-sale');
+    if (!modalEl) return;
+
+    var countdownEl = modalEl.querySelector('.time-countdown');
+    if (!countdownEl) return;
+
+    var dayEl = countdownEl.querySelector('.time-item:nth-child(1) .time-value');
+    var hourEl = countdownEl.querySelector('.time-item:nth-child(2) .time-value');
+    var minuteEl = countdownEl.querySelector('.time-item:nth-child(3) .time-value');
+    var secondEl = countdownEl.querySelector('.time-item:nth-child(4) .time-value');
+    if (!dayEl || !hourEl || !minuteEl) return;
+
+    var initialDays = parseInt((dayEl.textContent || '0').trim(), 10);
+    if (isNaN(initialDays) || initialDays <= 0) return;
+
+    var cookieName = 'product_sale_countdown_' + initialDays;
+    var endTime;
+
+    var savedEndTime = getCookie(cookieName);
+    if (savedEndTime) {
+      endTime = parseInt(savedEndTime, 10);
+    } else {
+      endTime = new Date().getTime() + (initialDays * 24 * 60 * 60 * 1000);
+      setCookie(cookieName, endTime.toString(), initialDays * 24); // lifetime equals days
+    }
+
+    var timer = setInterval(function () {
+      var now = new Date().getTime();
+      var timeLeft = endTime - now;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        dayEl.textContent = '00';
+        hourEl.textContent = '00';
+        minuteEl.textContent = '00';
+        if (secondEl) secondEl.textContent = '00';
+        deleteCookie(cookieName);
+        return;
+      }
+
+      var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      dayEl.textContent = days.toString().padStart(2, '0');
+      hourEl.textContent = hours.toString().padStart(2, '0');
+      minuteEl.textContent = minutes.toString().padStart(2, '0');
+      if (secondEl) secondEl.textContent = seconds.toString().padStart(2, '0');
+    }, 1000);
+  })();
+
+  // Auto show register popup after 2 seconds on category pages
+  // Purpose: Display `#popup-register` on category-related pages after delay
+  // (function () {
+  //   var body = document.body;
+  //   var isCategoryPage = body.classList.contains('category') ||
+  //                       body.classList.contains('category-tin-tuc') ||
+  //                       body.classList.contains('archive');
+  //   if (!isCategoryPage) return;
+
+  //   setTimeout(function () {
+  //     var modalEl = document.getElementById('popup-register');
+  //     if (!modalEl) return;
+
+  //     // Prefer Bootstrap 5 Modal API if available
+  //     if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+  //       var instance = bootstrap.Modal.getOrCreateInstance(modalEl);
+  //       instance.show();
+  //       return;
+  //     }
+
+  //     // Fallback: jQuery modal if integrated (Bootstrap 4 style)
+  //     if (typeof jQuery !== 'undefined' && typeof jQuery(modalEl).modal === 'function') {
+  //       jQuery(modalEl).modal('show');
+  //       return;
+  //     }
+
+  //     // Last resort: toggle minimal classes/attrs to show
+  //     modalEl.classList.add('show');
+  //     modalEl.style.display = 'block';
+  //     modalEl.setAttribute('aria-modal', 'true');
+  //     modalEl.removeAttribute('aria-hidden');
+  //   }, 2000);
+  // })();
 })(jQuery);

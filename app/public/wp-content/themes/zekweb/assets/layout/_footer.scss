@@ -2,48 +2,89 @@
 @use '../utilities/mixin' as *;
 
 footer {
-    background: #f8f9fa;
-    padding: 30px 0;
+    background: #0f0f0f;
+    padding: 60px 0 20px;
+    color: #fff;
+
+    @include mediaMaxWidth($lg) {
+      padding: 30px 0 20px;
+    }
+
+    .logo {
+      margin-bottom: 30px;
+      text-align: center;
+      img {
+        max-width: 300px;
+
+        @include mediaMaxWidth($sm) {
+          max-width: 200px;
+        }
+      }
+    }
 
     .company {
-        font-family: $subFont;
-        font-weight: 600;
-        margin-bottom: 20px;
+        font-weight: 300;
+        margin-bottom: 20px !important;
         line-height: 1.5;
-        @include resFont(16px, 18px, true);
+        @include resFont(14px, 16px, true);
     }
     
     .footer-title {
         font-family: $subFont;
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: 20px !important;
+        text-transform: uppercase;
 
         @include resFont(16px, 18px, true);
     }
 
     .list-unstyled {
-      ul {
-        list-style: none;
-        
-        li {
-          margin-bottom: 5px;
+      margin-bottom: 30px;
 
-          a {
-            &:hover {
-              color: $primaryColor;
-            }
+      li {
+        list-style: none;
+        margin-bottom: 5px;
+
+        a {
+          font-weight: 300;
+          color: #fff !important;
+
+          @include resFont(14px, 16px, true);
+
+          &:hover {
+            color: $primaryColor !important;
           }
         }
       }
     }
 
     .copyright {
-        border-top: 1px solid #000;
+        border-top: 1px solid #fff;
         text-align: center;
         padding-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+
+        @include mediaMaxWidth($sm) {
+          justify-content: center;
+        }
+
+        .content {
+          font-weight: 300;
+        }
 
         p {
           margin-bottom: 0;
+        }
+
+        img {
+          object-fit: contain;
+          max-width: 100%;
+          height: auto;
         }
     }
 
@@ -52,53 +93,218 @@ footer {
         margin-bottom: 30px;
       }
     }
+
+    .socials {
+      @include mediaMaxWidth($md) {
+        margin-bottom: 0;
+      }
+    }
 }
 
-// .footer {
-//   background: #f9f9f9;
-//   font-size: 14px;
-//   color: #000;
+// social proof
+.custom-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: white;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  padding: 5px 20px 5px 5px;
+  z-index: 9999;
+  font-family: $primaryFont;
+  transition: opacity 0.5s, transform 0.5s;
+  transform: translateY(20px);
+  opacity: 0;
 
-//   .item {
-//     margin-bottom: 30px;
+  &.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
 
-//     .footer-title {
-//       width: 75%;
-//       margin: auto;
-//       h6 {
-//         font-size: 14px;
-//         line-height: 1.8;
-//         margin-bottom: 10px;
-//       }
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 1px solid $textColor;
+  }
+  
+  .popup-content p {
+    margin: 0;
+    line-height: 1.4;
+  }
 
-//       p {
-//         margin-bottom: 15px;
-//       }
+  .popup-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
 
-//       ul {
-//         padding: 0;
-//         margin: 0;
+  .popup-action {
+    font-size: 12px;
+  }
 
-//         li {
-//           margin-bottom: 15px;
+  .popup-time {
+    font-size: 12px;
+    color: #888;
+  }
+}
 
-//           a {
-//             color: #000;
-//             text-decoration: none;
-//             line-height: 1.6;
-//             font-weight: 500;
-//             font-size: 12px;
-//             text-transform: uppercase;
+// popup homepage
+.modal-popup {
 
-//             &:hover {
-//               color: #ffb128;
-//             }
-//           }
-//         }
-//       }
-//       @include mediaMaxWidth($md) {
-//         width: 100%;
-//       }
-//     }
-//   }
-// }
+  .modal-dialog {
+    padding: 0 20px;
+    height: 100%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+
+    @include mediaMaxWidth($sm) {
+      padding: 0;
+    }
+  }
+
+  .modal-content {
+    position: relative;
+    border: none;
+    background-color: #fff;
+  }
+
+  .modal-header {
+    border: none !important;
+  }
+
+  .btn-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid $primaryColor;
+    opacity: 1;
+  }
+
+  .body-inner {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+
+    @include mediaMaxWidth($sm) {
+      grid-template-columns: 1fr;
+    }
+
+    .media {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .popup-content {
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      margin-bottom: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: $primaryColor;
+      text-align: center;
+      text-transform: uppercase;
+
+      @include resFont(20px, 23px, true);
+    }
+
+    .desc {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .wpcf7 {
+      width: 100%;
+    }
+  }
+}
+
+#popup-product-sale {
+  .modal-dialog { 
+    max-width: 1000px;
+  }
+
+  .body-inner {
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include mediaMaxWidth($sm) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .time-countdown {
+    .time-item {
+      .time-label {
+        color: $textColor;
+      }
+    }
+  }
+}
+
+#popup-register {
+  .modal-content {
+    background-color: $primaryColor;
+    color: #fff;
+  }
+
+  .title {
+    color: #fff;
+  }
+
+  .modal-dialog { 
+    max-width: 800px;
+  }
+
+  .body-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .wpcf7-form {
+    span[data-name="price-type"] {
+      margin-bottom: 20px;
+      display: block;
+
+      .wpcf7-form-control.wpcf7-radio {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .wpcf7-list-item {
+        margin-left: 0;
+        margin-bottom: 10px;
+
+        label {
+          display: flex;
+          align-items: center;
+
+          input {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .note {
+    font-style: italic;
+  }
+}

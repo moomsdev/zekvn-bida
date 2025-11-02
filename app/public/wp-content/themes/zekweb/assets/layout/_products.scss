@@ -304,7 +304,19 @@ body.woocommerce .devvn_wcfa_widget_layered_nav ul li a::before {
 body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:active::before,
 body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:focus::before,
 body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:hover::before,
-body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a::before {
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a::before,
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a:active::before, body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a:focus::before, body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a:hover::before {
     content: '✓';
     font-size: 14px;
+    color: $subColor !important;
+    border-color: $subColor !important;
+}
+
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li.chosen a {
+    color: $subColor !important;
+}
+
+body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:active, body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:focus, body.woocommerce .devvn_wcfa_widget_layered_nav ul li a:hover {
+    color: $subColor !important;
+    opacity: 1 !important;
 }

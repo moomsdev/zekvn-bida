@@ -23,16 +23,17 @@
 		<?php $value = get_field( 'code_body','option' ); echo $value?>
 		<div id="zek-web">
 			<div class="line-dark"></div>
+			<div class="slogan">
+				<div class="container">
+					<marquee behavior="" direction=""><?php the_field('slogan','option'); ?></marquee>
+				</div>
+			</div>
 			<header id="header">
 				<?php if (is_home() || is_front_page()) { ?>
 				<h1 class="site-name" style="display: none;"><?php bloginfo('title'); ?></h1>
 				<?php } ?>
 				<div class="header-main head">
-					<div class="slogan">
-						<div class="container">
-							<marquee behavior="" direction=""><?php the_field('slogan','option'); ?></marquee>
-						</div>
-					</div>
+					
 					<div class="container">
 						<div class="header-top">
 							<div class="col-logo">

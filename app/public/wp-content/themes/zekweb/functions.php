@@ -794,3 +794,40 @@ function enqueue_ajax_search_script() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_ajax_search_script');
 
+function enqueue_custom_script() {
+    wp_enqueue_script('custom-js', get_template_directory_uri() . '/js/custom.js', array('jquery'), time(), true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_script');
+
+function my_theme_prepare_popup_data() {
+    // Lấy dữ liệu từ Repeater Field trong Options Page
+    $notifications = array();
+
+    // Tên của Repeater Field
+    $repeater_field_name = 'social_proof';
+
+    if( have_rows($repeater_field_name, 'option') ) {
+        while( have_rows($repeater_field_name, 'option') ) {
+            the_row();
+
+            // Lấy dữ liệu ảnh và kiểm tra
+            $image_array = get_sub_field('img');
+            // Cung cấp một đường dẫn đến ảnh mặc định nếu không có ảnh nào được tải lên
+            $image_url = $image_array ? $image_array : get_template_directory_uri() . '/images/default-avatar.webp'; 
+
+            $notification_item = array(
+                // Lấy dữ liệu từ các trường con - sử dụng get_sub_field cho Repeater
+                'name'    => get_sub_field('title'),
+                'action'  => get_sub_field('content'),
+                'time'    => get_sub_field('time'),
+                'image'   => $image_url
+            );
+            $notifications[] = $notification_item;
+        }
+    }
+
+    wp_localize_script( 'custom-js', 'popupData', array(
+        'notifications' => $notifications
+    ) );
+}
+add_action( 'wp_enqueue_scripts', 'my_theme_prepare_popup_data' );
